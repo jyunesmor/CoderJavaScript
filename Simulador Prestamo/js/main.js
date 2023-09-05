@@ -11,17 +11,49 @@ const tasaInteres = Number(
    prompt("Ingrese Tasa de Interes a Aplicar Mensualmente")
 );
 
-console.log(valorCuota(prestamo, cantCuotas, tasaInteres));
-
+console.log("Sistema Aleman");
+console.log(valorCuotaAleman(prestamo, cantCuotas, tasaInteres));
+console.log("==========================");
+console.log("Sistema Frances");
+console.log(valorCuotaFrances(prestamo, cantCuotas, tasaInteres));
+/* console.log("==========================");
+console.log("Sistema Americano");
+console.log(valorCuotaAmericano(prestamo, cantCuotas, tasaInteres));
+ */
 // Funciones a utiizar
 
-function valorCuota(a, b, c) {
+function valorCuotaAmericano(a, b, c) {
+   function CuotaFinal(capital, interes) {
+      (this.capital = capital), (this.interes = interes);
+   }
+
+   let mes = 1;
+   const cuotaFija = (a * c) / 100;
+   const saldo = a;
    const arrayCuota = [];
 
-   const cuotaFinal = {
+   while (mes <= b) {
+      if (mes === b) {
+         let cuota = new CuotaFinal(saldo, cuotaFija);
+         arrayCuota.push(cuota);
+      } else {
+         let cuota = new CuotaFinal(0, cuotaFija);
+         arrayCuota.push(cuota);
+      }
+
+      mes += 1;
+   }
+
+   return arrayCuota;
+}
+
+function valorCuotaFrances(a, b, c) {
+   const arrayCuota = [];
+
+   /*    const cuotaFinal = {
       capital: a,
       interes: 0,
-   };
+   }; */
 
    // Calculo Cuota Fija Mensual
    let intParc = c / 100;
@@ -38,14 +70,14 @@ function valorCuota(a, b, c) {
 
    while (prest > 1) {
       let intcuot = prest * intParc;
-      console.log(intcuot.toFixed(2));
+      console.log("Interes " + intcuot.toFixed(2));
       let amort = cuotaFija - intcuot;
-      console.log(amort.toFixed(2));
+      console.log("Capital " + amort.toFixed(2));
 
-      cuotaFinal.capital = amort.toFixed(2);
-      cuotaFinal.interes = intcuot.toFixed(2);
+      let cuotaFinal = amort + intcuot;
+      console.log("Cuota Total $ " + cuotaFinal.toFixed(2));
 
-      arrayCuota.push(cuotaFinal);
+      arrayCuota.push(cuotaFinal.toFixed(2));
 
       prest -= amort;
       console.log("Deuda Actualizada " + prest.toFixed(2));
@@ -54,7 +86,7 @@ function valorCuota(a, b, c) {
    return arrayCuota;
 }
 
-/* function valorCuotaAleman(a, b, c) {
+function valorCuotaAleman(a, b, c) {
    const arrayCuota = [];
 
    const cuotaFija = a / b;
@@ -69,11 +101,11 @@ function valorCuota(a, b, c) {
 
       let cuotaParc = cuotaFija + intParc;
 
-      arrayCuota.push(cuotaParc);
+      arrayCuota.push(cuotaParc.toFixed(2));
 
       prest -= cuotaFija;
+      console.log("Deuda Actualizada " + prest.toFixed(2));
    } while (prest > 0);
 
    return arrayCuota;
 }
- */
