@@ -20,33 +20,68 @@ const sistema = prompt(
    "Ingrese el Sistema de Amorizacion (Aleman, Frances o Americano)"
 );
 
+//Gastos Fijos
+const iva = 0.21; // 21%
+const comisionAdm = 0.05; // 5%
+
 switch (sistema.toLowerCase()) {
    case "aleman":
-      let arrayAle = valorCuotaAleman(prestamo, cantCuotas, tasaInteres);
+      let arrayAle = valorCuotaAleman(
+         prestamo,
+         cantCuotas,
+         tasaInteres,
+         iva,
+         comisionAdm
+      );
       console.log(
          "El detalle de Cuotas e Importe para su prestamos de amortizacion Aleman es: "
       );
-      console.log(arrayAle);
+      mostraCuotas(arrayAle);
       break;
    case "frances":
-      let arrayFran = valorCuotaFrances(prestamo, cantCuotas, tasaInteres);
+      let arrayFran = valorCuotaFrances(
+         prestamo,
+         cantCuotas,
+         tasaInteres,
+         iva,
+         comisionAdm
+      );
       console.log(
          "El detalle de Cuotas e Importe para su prestamos de amortizacion Frances es: "
       );
-      console.log(arrayFran);
+      mostraCuotas(arrayFran);
       break;
    case "americano":
-      let arrayAme = valorCuotaAmericano(prestamo, cantCuotas, tasaInteres);
+      let arrayAme = valorCuotaAmericano(
+         prestamo,
+         cantCuotas,
+         tasaInteres,
+         iva,
+         comisionAdm
+      );
       console.log(
          "El detalle de Cuotas para su prestamos de amortizacion Americano es: "
       );
-      console.log(arrayAme);
+      mostraCuotas(arrayAme);
       break;
    default:
       break;
 }
 
 // Funciones a utiizar
+function mostraCuotas(cuotas) {
+   cuotas.forEach((cuotas, i) => {
+      console.log(
+         `La Cuota n° ${i + 1}
+         es por un total de $ ${cuotas.total}, 
+         y se compone de la siguiente manera:
+         Capital por $ ${cuotas.capital},
+         Intereses por $ ${cuotas.interes},
+         Iva por $ ${cuotas.iva},
+         Comision Administrativa por $ ${cuotas.comiAdm}.-`
+      );
+   });
+}
 
 function verificarNumero(numero) {
    while (isNaN(numero)) {
@@ -56,27 +91,32 @@ function verificarNumero(numero) {
          );
       } while (isNaN(numero));
    }
-   return numero;
+   return Number(numero);
 }
 
-function CuotaMensual(capital, interes, total) {
+function CuotaMensual(capital, interes, total, iva, comiAdm) {
    this.capital = capital;
    this.interes = interes;
    this.total = total;
+   this.iva = iva;
+   this.comiAdm = comiAdm;
 }
 
-function valorCuotaAmericano(prestamo, plazo, interes) {
+function valorCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
    const arrayCuota = [];
 
    let mes = 1;
-   const cuotaFija = (prestamo * interes) / 100;
-   const saldo = prestamo;
-   let totAmericano = cuotaFija + saldo;
-   console.log(totAmericano);
+   let interesCuota = (prestamo * interes) / 100;
+   let ivaCuota = prestamo * iva;
+   console.log(ivaCuota);
+   let comisionAdmin = prestamo * comisionAdm;
+   console.log(comisionAdmin);
+   let cuotaFija = interesCuota + ivaCuota + comisionAdmin;
+   let totAmericano = cuotaFija + prestamo;
 
    while (mes <= plazo) {
       if (mes === plazo) {
-         let cuota = new CuotaMensual(saldo, cuotaFija, totAmericano);
+         let cuota = new CuotaMensual(prestamo, cuotaFija, totAmericano);
          arrayCuota.push(cuota);
       } else {
          let cuota = new CuotaMensual(0, cuotaFija, cuotaFija);
@@ -89,7 +129,7 @@ function valorCuotaAmericano(prestamo, plazo, interes) {
    return arrayCuota;
 }
 
-function valorCuotaFrances(prestamo, plazo, interes) {
+function valorCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
    const arrayCuota = [];
 
    // Calculo Cuota Fija Mensual
@@ -99,7 +139,10 @@ function valorCuotaFrances(prestamo, plazo, interes) {
    let prestInt = prestamo * intParc;
    let divisor = 1 - Math.pow(interesMasUno, -plazo);
 
-   const cuotaFija = prestInt / divisor;
+   let cuotaFija = prestInt / divisor;
+
+   let ivaCuota = cuotaFija * iva;
+   let comAdmCuota = cuotaFija * comisionAdm;
 
    // Calculo Desglose de Cuota
    let prest = prestamo;
@@ -107,13 +150,15 @@ function valorCuotaFrances(prestamo, plazo, interes) {
    while (prest > 1) {
       let intcuot = prest * intParc; // calculo Interes cuota
       let amort = cuotaFija - intcuot; // calculo capital amortizado
-      let cuotaMensual = intcuot + amort; // calculo total cuota mensual
+      let cuotaMensual = intcuot + amort + ivaCuota + comAdmCuota; // calculo total cuota mensual
       let cuotot = cuotaMensual.toFixed(2);
 
       let cuota = new CuotaMensual(
          amort.toFixed(2),
          intcuot.toFixed(2),
-         cuotot
+         cuotot,
+         ivaCuota.toFixed(2),
+         comAdmCuota.toFixed(2)
       );
 
       arrayCuota.push(cuota);
@@ -124,20 +169,29 @@ function valorCuotaFrances(prestamo, plazo, interes) {
    return arrayCuota;
 }
 
-function valorCuotaAleman(prestamo, plazo, interes) {
+function valorCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
    const arrayCuota = [];
 
    const cuotaFija = prestamo / plazo;
+
+   let ivaCuota = cuotaFija * iva;
+   let comAdmCuota = cuotaFija * comisionAdm;
 
    let prest = prestamo;
 
    do {
       let intParc = (prest * interes) / 100;
 
-      let cuotaMensual = cuotaFija + intParc;
+      let cuotaMensual = cuotaFija + intParc + ivaCuota + comAdmCuota;
       let cuotaParc = cuotaMensual.toFixed(2);
 
-      let cuota = new CuotaMensual(cuotaFija, intParc, cuotaParc);
+      let cuota = new CuotaMensual(
+         cuotaFija,
+         intParc,
+         cuotaParc,
+         ivaCuota.toFixed(2),
+         comAdmCuota.toFixed(2)
+      );
 
       arrayCuota.push(cuota);
 
