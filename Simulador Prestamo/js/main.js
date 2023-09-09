@@ -3,11 +3,15 @@ alert("Hola Bienvenido al Simulador de Prestamos");
 console.log("Hola Bienvenido al Simulador de Prestamos");
 
 // Solicitud de Datos
-let prestamo = Number(prompt("Ingrese el Monto del Prestamo a Solicitar"));
-let cantCuotas = Number(prompt("Ingrese el plazo en el cual se devolvera"));
+let prestamo = verificarNumero(
+   prompt("Ingrese el Importe de Prestamo a Solicitar")
+);
 
-// Tasa de Interes
-const tasaInteres = Number(
+let cantCuotas = verificarNumero(
+   prompt("Ingrese el plazo en el cual se devolvera")
+);
+
+let tasaInteres = verificarNumero(
    prompt("Ingrese Tasa de Interes a Aplicar Mensualmente")
 );
 
@@ -44,27 +48,38 @@ switch (sistema.toLowerCase()) {
 
 // Funciones a utiizar
 
-function cuotaMensual(capital, interes, total) {
+function verificarNumero(numero) {
+   while (isNaN(numero)) {
+      do {
+         numero = prompt(
+            "el importe Ingresado no es un número, por favor reingrese un valor"
+         );
+      } while (isNaN(numero));
+   }
+   return numero;
+}
+
+function CuotaMensual(capital, interes, total) {
    this.capital = capital;
    this.interes = interes;
    this.total = total;
 }
 
-function valorCuotaAmericano(a, b, c) {
+function valorCuotaAmericano(prestamo, plazo, interes) {
    const arrayCuota = [];
 
    let mes = 1;
-   const cuotaFija = (a * c) / 100;
-   const saldo = a;
+   const cuotaFija = (prestamo * interes) / 100;
+   const saldo = prestamo;
    let totAmericano = cuotaFija + saldo;
    console.log(totAmericano);
 
-   while (mes <= b) {
-      if (mes === b) {
-         let cuota = new cuotaMensual(saldo, cuotaFija, totAmericano);
+   while (mes <= plazo) {
+      if (mes === plazo) {
+         let cuota = new CuotaMensual(saldo, cuotaFija, totAmericano);
          arrayCuota.push(cuota);
       } else {
-         let cuota = new cuotaMensual(0, cuotaFija, cuotaFija);
+         let cuota = new CuotaMensual(0, cuotaFija, cuotaFija);
          arrayCuota.push(cuota);
       }
 
@@ -74,28 +89,28 @@ function valorCuotaAmericano(a, b, c) {
    return arrayCuota;
 }
 
-function valorCuotaFrances(a, b, c) {
+function valorCuotaFrances(prestamo, plazo, interes) {
    const arrayCuota = [];
 
    // Calculo Cuota Fija Mensual
-   let intParc = c / 100;
-   let d = 1 + intParc;
+   let intParc = interes / 100;
+   let interesMasUno = 1 + intParc;
 
-   let prestInt = a * intParc;
-   let divisor = 1 - Math.pow(d, -b);
+   let prestInt = prestamo * intParc;
+   let divisor = 1 - Math.pow(interesMasUno, -plazo);
 
    const cuotaFija = prestInt / divisor;
 
    // Calculo Desglose de Cuota
-   let prest = a;
+   let prest = prestamo;
 
    while (prest > 1) {
       let intcuot = prest * intParc; // calculo Interes cuota
       let amort = cuotaFija - intcuot; // calculo capital amortizado
-      let g = intcuot + amort; // calculo total cuota mensual
-      let cuotot = g.toFixed(2);
+      let cuotaMensual = intcuot + amort; // calculo total cuota mensual
+      let cuotot = cuotaMensual.toFixed(2);
 
-      let cuota = new cuotaMensual(
+      let cuota = new CuotaMensual(
          amort.toFixed(2),
          intcuot.toFixed(2),
          cuotot
@@ -109,20 +124,20 @@ function valorCuotaFrances(a, b, c) {
    return arrayCuota;
 }
 
-function valorCuotaAleman(a, b, c) {
+function valorCuotaAleman(prestamo, plazo, interes) {
    const arrayCuota = [];
 
-   const cuotaFija = a / b;
+   const cuotaFija = prestamo / plazo;
 
-   let prest = a;
+   let prest = prestamo;
 
    do {
-      let intParc = (prest * c) / 100;
+      let intParc = (prest * interes) / 100;
 
-      let g = cuotaFija + intParc;
-      let cuotaParc = g.toFixed(2);
+      let cuotaMensual = cuotaFija + intParc;
+      let cuotaParc = cuotaMensual.toFixed(2);
 
-      let cuota = new cuotaMensual(cuotaFija, intParc, cuotaParc);
+      let cuota = new CuotaMensual(cuotaFija, intParc, cuotaParc);
 
       arrayCuota.push(cuota);
 
