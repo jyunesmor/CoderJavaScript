@@ -1,7 +1,7 @@
-alert("Hola Bienvenido al Simulador de Prestamos");
+/* alert("Hola Bienvenido al Simulador de Prestamos");
 
 console.log("Hola Bienvenido al Simulador de Prestamos");
-
+ */
 // Solicitud de Datos
 let prestamo = verificarNumero(
    prompt("Ingrese el Importe de Prestamo a Solicitar")
@@ -36,6 +36,7 @@ switch (sistema.toLowerCase()) {
       console.log(
          "El detalle de Cuotas e Importe para su prestamos de amortizacion Aleman es: "
       );
+
       mostraCuotas(arrayAle);
       break;
    case "frances":
@@ -60,8 +61,9 @@ switch (sistema.toLowerCase()) {
          comisionAdm
       );
       console.log(
-         "El detalle de Cuotas para su prestamos de amortizacion Americano es: "
+         "El detalle de Cuotas e Importe para su prestamos de amortizacion Americano es: "
       );
+
       mostraCuotas(arrayAme);
       break;
    default:
@@ -80,6 +82,8 @@ function mostraCuotas(cuotas) {
          Iva por $ ${cuotas.iva},
          Comision Administrativa por $ ${cuotas.comiAdm}.-`
       );
+      alert(`La Cuota n° ${i + 1}
+         es por un total de $ ${cuotas.total}`);
    });
 }
 
@@ -94,12 +98,13 @@ function verificarNumero(numero) {
    return Number(numero);
 }
 
-function CuotaMensual(capital, interes, total, iva, comiAdm) {
+function CuotaMensual(capital, interes, total, iva, comiAdm, sistema) {
    this.capital = capital;
    this.interes = interes;
    this.total = total;
    this.iva = iva;
    this.comiAdm = comiAdm;
+   this.sistema = sistema;
 }
 
 function valorCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
@@ -108,18 +113,33 @@ function valorCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
    let mes = 1;
    let interesCuota = (prestamo * interes) / 100;
    let ivaCuota = prestamo * iva;
-   console.log(ivaCuota);
    let comisionAdmin = prestamo * comisionAdm;
-   console.log(comisionAdmin);
+
    let cuotaFija = interesCuota + ivaCuota + comisionAdmin;
    let totAmericano = cuotaFija + prestamo;
 
    while (mes <= plazo) {
       if (mes === plazo) {
-         let cuota = new CuotaMensual(prestamo, cuotaFija, totAmericano);
+         let cuota = new CuotaMensual(
+            prestamo.toFixed(2),
+            cuotaFija.toFixed(2),
+            totAmericano.toFixed(2),
+            ivaCuota.toFixed(2),
+            comisionAdmin.toFixed(2),
+            "americano"
+         );
+
          arrayCuota.push(cuota);
       } else {
-         let cuota = new CuotaMensual(0, cuotaFija, cuotaFija);
+         let cuota = new CuotaMensual(
+            0,
+            cuotaFija.toFixed(2),
+            totAmericano.toFixed(2),
+            ivaCuota.toFixed(2),
+            comisionAdmin.toFixed(2),
+            "americano"
+         );
+
          arrayCuota.push(cuota);
       }
 
@@ -158,7 +178,8 @@ function valorCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
          intcuot.toFixed(2),
          cuotot,
          ivaCuota.toFixed(2),
-         comAdmCuota.toFixed(2)
+         comAdmCuota.toFixed(2),
+         "frances"
       );
 
       arrayCuota.push(cuota);
@@ -183,14 +204,14 @@ function valorCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
       let intParc = (prest * interes) / 100;
 
       let cuotaMensual = cuotaFija + intParc + ivaCuota + comAdmCuota;
-      let cuotaParc = cuotaMensual.toFixed(2);
 
       let cuota = new CuotaMensual(
-         cuotaFija,
-         intParc,
-         cuotaParc,
+         cuotaFija.toFixed(2),
+         intParc.toFixed(2),
+         cuotaMensual.toFixed(2),
          ivaCuota.toFixed(2),
-         comAdmCuota.toFixed(2)
+         comAdmCuota.toFixed(2),
+         "aleman"
       );
 
       arrayCuota.push(cuota);

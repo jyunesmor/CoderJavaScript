@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Document</title>
+   <!--Import Google Icon Font-->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+   <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+   <link rel="stylesheet" href="./css/styleSimulador.css" />
+</head>
+
+<body class="lime accent-1">
+   <section class="contenedor">
+      <h1 class="title">Simulador de Prestamos</h1>
+      <div class="contenedor-form deep-purple lighten-5">
+         <form>
+            <div class="col s12">
+               <h4 class="center-align">Datos Personales</h4>
+               <div class="row">
+                  <div class="col s12">
+                     <div class="row">
+                        <!-- Nombre -->
+                        <div class="input-field col s6 valign-wrapper">
+                           <input name="nombre" type="text" class="validate" required />
+                           <label for="nombre">Nombre: </label>
+                        </div>
+                        <!-- Apellido -->
+                        <div class="input-field col s6 valign-wrapper">
+                           <input name="apellido" type="text" class="validate" required />
+                           <label for="apellido">Apellido: </label>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <!-- Documento -->
+                        <div class="input-field col s6 valign-wrapper">
+                           <input ¨ name="documento" type="text" class="validate" required />
+                           <label for="nombre">D.N.I.: </label>
+                        </div>
+                        <!-- Seleccion Genero -->
+                        <div class="col s6">
+                           <label>Elige tu Genero</label>
+                           <select class="browser-default deep-purple lighten-4"">
+                              <option value="" disabled selected vis>
+                              Genero
+                              </option>
+                              <option value=" hombre">Hombre</option>
+                              <option value="mujer">Mujer</option>
+                              <option value="otro">Otro</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <!-- Email -->
+                        <div class="input-field col s12 valign-wrapper">
+                           <input name="email" type="text" class="validate" required />
+                           <label for="email">Ingresa tu E-mail: </label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <h4 class="center-align">Datos Prestamo</h4>
+                  <div class="col s12">
+                     <div class="row">
+                        <!-- Importe Solicitado -->
+                        <div class="input-field col s12 valign-wrapper">
+                           <input name="prestamo" type="text" class="validate" required />
+                           <label for="nombre">Importe a Solicitar: </label>
+                        </div>
+                        <!-- Plazo de Devolución -->
+                        <div class="col s6">
+                           <label>Elige tu Plazo de devolución</label>
+                           <select class="browser-default deep-purple lighten-4">
+                              <option value="" disabled selected>
+                                 Elige Plazo
+                              </option>
+                              <option value="6">6 meses</option>
+                              <option value="12">12 meses</option>
+                              <option value="18">18 meses</option>
+                              <option value="24">24 meses</option>
+                              <option value="36">36 meses</option>
+                           </select>
+                        </div>
+                        <!-- Sistema de Prestamo -->
+                        <div class="col s6">
+                           <label>Elige el Sistema de amortización</label>
+                           <select class="browser-default deep-purple lighten-4"">
+                              <option value="" disabled selected>
+                                 Elige Sistema
+                              </option>
+                              <option value=" aleman">
+                              Aleman (Cuota Variable)
+                              </option>
+                              <option value="frances">
+                                 Frances (Cuota Fija)
+                              </option>
+                              <option value="americano">
+                                 Americano (Cuota Mixta)
+                              </option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col s12 buttoncol">
+                           <button class="btn col s5">Consultar</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+      </div>
+   </section>
+   <!--Import jQuery before materialize.js-->
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+   <script src="./js/main.js"></script>
+</body>
+
+</html>
