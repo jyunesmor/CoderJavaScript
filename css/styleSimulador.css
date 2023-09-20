@@ -19,7 +19,13 @@ html {
         margin: auto;
         width: 85%;
         padding: 15px;
-        border: 1px solid black; }
+        border: 1px solid black;
+        border-radius: 25px;
+        box-shadow: 6px 6px 15px black; }
+        html body .contenedor .contenedor-form .input-field input {
+          padding-left: 15px; }
+        html body .contenedor .contenedor-form .input-field label {
+          padding-left: 15px; }
         html body .contenedor .contenedor-form .buttoncol {
           display: flex; }
           html body .contenedor .contenedor-form .buttoncol .btn {

@@ -25,6 +25,18 @@ html {
             width: 85%;
             padding: 15px;
             border: 1px solid black;
+            border-radius: 25px;
+            box-shadow: 6px 6px 15px black;
+
+            .input-field {
+               input {
+                  padding-left: 15px;
+               }
+
+               label {
+                  padding-left: 15px;
+               }
+            }
 
             .buttoncol {
                display: flex;
