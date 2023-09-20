@@ -15,11 +15,6 @@ let tasaInteres = verificarNumero(
    prompt("Ingrese Tasa de Interes a Aplicar Mensualmente")
 );
 
-// Eleccion tipo de Amortizacion
-const sistema = prompt(
-   "Ingrese el Sistema de Amorizacion (Aleman, Frances o Americano)"
-);
-
 //Gastos Fijos
 const iva = 0.21; // 21%
 const comisionAdm = 0.05; // 5%
