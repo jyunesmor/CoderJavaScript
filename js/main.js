@@ -1,18 +1,45 @@
 alert("Hola Bienvenido al Simulador de Prestamos");
 console.log("Hola Bienvenido al Simulador de Prestamos");
 
-// Solicitud de Datos
-let prestamo = verificarNumero(
-   prompt("Ingrese el Importe de Prestamo a Solicitar")
-);
+class CuotaMensual {
+   constructor(capital, interes, total, iva, comiAdm, sistema) {
+      this.capital = capital;
+      this.interes = interes;
+      this.total = total;
+      this.iva = iva;
+      this.comiAdm = comiAdm;
+      this.sistema = sistema;
+   }
 
-let cantCuotas = verificarNumero(
-   prompt("Ingrese el plazo en el cual se devolvera")
-);
+   mostrarCuotas(cuotas) {
+      cuotas.forEach((cuotas, i) => {
+         console.log(
+            `La Cuota n° ${i + 1}
+         es por un total de $ ${cuotas.total}, 
+         y se compone de la siguiente manera:
+         Capital por $ ${cuotas.capital},
+         Intereses por $ ${cuotas.interes},
+         Iva por $ ${cuotas.iva},
+         Comision Administrativa por $ ${cuotas.comiAdm}.-`
+         );
+         alert(`La Cuota n° ${i + 1}
+         es por un total de $ ${cuotas.total}, el sistema elegido es el ${
+            cuotas.sistema
+         } .-`);
+      });
+   }
+}
 
-let tasaInteres = verificarNumero(
-   prompt("Ingrese Tasa de Interes a Aplicar Mensualmente").toLowerCase()
-);
+let dineroSolicitado = prompt("Ingrese el Importe de Prestamo a Solicitar");
+let prestamo = verificarNumero(dineroSolicitado);
+
+let cantCuotas = prompt("Ingrese el plazo en el cual se devolvera");
+let plazo = verificarNumero(cantCuotas);
+
+let tasaInteres = prompt(
+   "Ingrese Tasa de Interes a Aplicar Mensualmente"
+).toLowerCase();
+let interes = verificarNumero(tasaInteres);
 
 //Gastos Fijos
 const iva = 0.21; // 21%
@@ -21,17 +48,17 @@ const comisionAdm = 0.05; // 5%
 let sistema = "";
 
 do {
-   // Eleccion tipo de Amortizacion
-   sistema = verificarSistema(
-      prompt("Ingrese Sistema de Amorizacion (Aleman, Frances o Americano)")
+   let amortizacion = prompt(
+      "Ingrese Sistema de Amorizacion (Aleman, Frances o Americano)"
    );
+   sistema = verificarSistema(amortizacion);
 
    switch (sistema.toLowerCase()) {
       case "aleman":
-         let arrayAle = valorCuotaAleman(
+         let arrayAle = calculoCuotaAleman(
             prestamo,
-            cantCuotas,
-            tasaInteres,
+            plazo,
+            interes,
             iva,
             comisionAdm
          );
@@ -42,10 +69,10 @@ do {
          mostrarCuotas(arrayAle);
          break;
       case "frances":
-         let arrayFran = valorCuotaFrances(
+         let arrayFran = calculoCuotaFrances(
             prestamo,
-            cantCuotas,
-            tasaInteres,
+            plazo,
+            interes,
             iva,
             comisionAdm
          );
@@ -55,10 +82,12 @@ do {
          mostrarCuotas(arrayFran);
          break;
       case "americano":
-         let arrayAme = valorCuotaAmericano(
+         const cuota = new CuotaMensual();
+
+         let arrayAme = calculoCuotaAmericano(
             prestamo,
-            cantCuotas,
-            tasaInteres,
+            plazo,
+            interes,
             iva,
             comisionAdm
          );
@@ -66,7 +95,7 @@ do {
             "El detalle de Cuotas e Importe para su prestamos de amortizacion Americano es: "
          );
 
-         mostrarCuotas(arrayAme);
+         cuota.mostrarCuotas(arrayAme);
          break;
       default:
          console.log("No ingreso una opcion valida");
@@ -74,26 +103,6 @@ do {
 } while (sistema == "");
 
 // Funciones a utiizar
-
-/**  Procesado de datos  */
-
-function mostrarCuotas(cuotas) {
-   cuotas.forEach((cuotas, i) => {
-      console.log(
-         `La Cuota n° ${i + 1}
-         es por un total de $ ${cuotas.total}, 
-         y se compone de la siguiente manera:
-         Capital por $ ${cuotas.capital},
-         Intereses por $ ${cuotas.interes},
-         Iva por $ ${cuotas.iva},
-         Comision Administrativa por $ ${cuotas.comiAdm}.-`
-      );
-      alert(`La Cuota n° ${i + 1}
-         es por un total de $ ${cuotas.total}, el sistema elegido es el ${
-         cuotas.sistema
-      }.-`);
-   });
-}
 
 /**   Verificación de Datos */
 
@@ -123,28 +132,11 @@ function verificarNumero(numero) {
 
 /**  Creación de Cuotas y Usuario */
 
-function CuotaMensual(capital, interes, total, iva, comiAdm, sistema) {
-   this.capital = capital;
-   this.interes = interes;
-   this.total = total;
-   this.iva = iva;
-   this.comiAdm = comiAdm;
-   this.sistema = sistema;
-}
-
-function Usuario(nombre, apellido, dni, sexo, mail, prestamo) {
-   this.nombre = nombre;
-   this.apellido = apellido;
-   this.dni = dni;
-   this.sexo = sexo;
-   this.mail = mail;
-   this.prestamo = prestamo;
-}
-
 /**  Cálculo de las cuotas */
 
-function valorCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
+function calculoCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
    const arrayCuota = [];
+   const cuotaAmericana = new CuotaMensual();
 
    let mes = 1;
    let interesCuota = (prestamo * interes) / 100;
@@ -152,40 +144,38 @@ function valorCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
    let comisionAdmin = prestamo * comisionAdm;
 
    let cuotaFija = interesCuota + ivaCuota + comisionAdmin;
+   console.log(cuotaFija);
    let totAmericano = cuotaFija + prestamo;
 
    while (mes <= plazo) {
       if (mes === plazo) {
-         let cuota = new CuotaMensual(
-            prestamo.toFixed(2),
-            cuotaFija.toFixed(2),
-            totAmericano.toFixed(2),
-            ivaCuota.toFixed(2),
-            comisionAdmin.toFixed(2),
-            "americano"
-         );
-
-         arrayCuota.push(cuota);
+         cuotaAmericana.capital = prestamo.toFixed(2);
+         cuotaAmericana.interes = interesCuota.toFixed(2);
+         cuotaAmericana.total = totAmericano.toFixed(2);
+         cuotaAmericana.iva = ivaCuota.toFixed(2);
+         cuotaAmericana.comiAdm = comisionAdmin.toFixed(2);
+         cuotaAmericana.sistema = "AMERICANO";
+         arrayCuota.push(cuotaAmericana);
       } else {
-         let cuota = new CuotaMensual(
-            0,
-            interesCuota.toFixed(2),
-            cuotaFija.toFixed(2),
-            ivaCuota.toFixed(2),
-            comisionAdmin.toFixed(2),
-            "americano"
-         );
-
-         arrayCuota.push(cuota);
+         cuotaAmericana.capital = 0;
+         cuotaAmericana.interes = interesCuota.toFixed(2); /* ok  */
+         cuotaAmericana.total = cuotaFija.toFixed(2);
+         cuotaAmericana.iva = ivaCuota.toFixed(2); /* ok */
+         cuotaAmericana.comiAdm = comisionAdmin.toFixed(2); /* ok  */
+         cuotaAmericana.sistema = "AMERICANO";
+         arrayCuota.push(cuotaAmericana);
       }
+
+      console.log(cuotaAmericana);
 
       mes += 1;
    }
+   console.log(arrayCuota);
 
    return arrayCuota;
 } // Sistema Cuota Mixta
 
-function valorCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
+function calculo(prestamo, plazo, interes, iva, comisionAdm) {
    const arrayCuota = [];
 
    // Calculo Cuota Fija Mensual
@@ -226,7 +216,7 @@ function valorCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
    return arrayCuota;
 } // Sistema Cuota Fijo
 
-function valorCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
+function calculo(prestamo, plazo, interes, iva, comisionAdm) {
    const arrayCuota = [];
 
    const cuotaFija = prestamo / plazo;
