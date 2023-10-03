@@ -2,137 +2,126 @@
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
    <!--Import Google Icon Font-->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
    <!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
-   <!-- Vinculación con JavaScript -->
-   <script src="./js/main.js" defer></script>
-   <!-- Linke de Estilo -->
-   <link rel="stylesheet" href="./css/styleSimulador.css" />
-</head>
+   <link rel="stylesheet" href="./css/styleSimulador.css">
+   <!--  <script src="./js/main.js" defer></script> -->
+   <script src="./js/main copy.js" defer></script>
 
-<body class="lime accent-1">
-
+<body>
    <section class="contenedor">
-
-      <h1 class="title">Simulador de Prestamos</h1>
-
-      <div class="contenedor-form deep-purple lighten-5">
-         <form>
-
-            <div class="col s12">
-
-               <h4 class="center-align">Datos Personales</h4>
-
-               <div class="row">
-                  <div class="col s12">
-                     <div class="row">
-                        <!-- Nombre -->
-                        <div class="input-field col s12 m6">
-                           <input name="nombre" type="text" class="validate" required />
-                           <label for="nombre">Nombre: </label>
-                        </div>
-                        <!-- Apellido -->
-                        <div class="input-field col s12 m6">
-                           <input name="apellido" type="text" class="validate" required />
-                           <label for="apellido">Apellido: </label>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <!-- Documento -->
-                        <div class="input-field col s12 m6">
-                           <input ¨ name="documento" type="text" class="validate" required />
-                           <label for="nombre">D.N.I.: </label>
-                        </div>
-                        <!-- Seleccion Genero -->
-                        <div class="col s12 m6">
-                           <label>Elige tu Genero</label>
-                           <select class="browser-default deep-purple lighten-4"">
-                              <option value="" disabled selected vis>
-                              Genero
-                              </option>
-                              <option value=" hombre">Hombre</option>
-                              <option value="mujer">Mujer</option>
-                              <option value="otro">Otro</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <!-- Email -->
-                        <div class="input-field col s12">
-                           <input name="email" type="text" class="validate" required />
-                           <label for="email">Ingresa tu E-mail: </label>
-                        </div>
-                     </div>
+      <section class="row container">
+         <!-- ? Simulacion Prestamo -->
+         <section class="col s12">
+            <!-- ? Fila formulario consulta prestamo (Datos) */ -->
+            <form class="row" id="consultaPrest">
+               <!-- ? titulo */ -->
+               <div class="col s12">
+                  <h1 class="title center-align">Simular Prestamo</h1>
+               </div>
+               <!-- ? Importe */ -->
+               <div class="input-field col s12">
+                  <input id="solicitud" type="text" class="validate">
+                  <label for="solicitud">Importe a Solicitar</label>
+               </div>
+               <!-- ? Plazo de Devolución -->
+               <div class="col s12 m6 section">
+                  <label>Elige tu Plazo de devolución</label>
+                  <select id="plazo" class="browser-default deep-purple lighten-4">
+                     <option value="" disabled selected>
+                        Elige Plazo
+                     </option>
+                     <option value="6">6 meses</option>
+                     <option value="12">12 meses</option>
+                     <option value="18">18 meses</option>
+                     <option value="24">24 meses</option>
+                     <option value="36">36 meses</option>
+                  </select>
+               </div>
+               <!-- ? Tipo de Sistema */ -->
+               <div class="col s12 m6 section">
+                  <label>Elige el Sistema de amortización</label>
+                  <select id="sistema" class="browser-default deep-purple lighten-4">
+                     <option value="" disabled selected>
+                        Elige Sistema
+                     </option>
+                     <option value="aleman">
+                        Aleman (Cuota Variable)
+                     </option>
+                     <option value="frances">
+                        Frances (Cuota Fija)
+                     </option>
+                     <option value="americano">
+                        Americano (Cuota Mixta)
+                     </option>
+                  </select>
+               </div>
+               <div class="input-field col s12 valign-wrapper">
+                  <div class=" col s12 center">
+                     <a><button type="submit" class="btn center-align">Simular</button></a>
                   </div>
                </div>
-
-               <h4 class="center-align">Datos Prestamo</h4>
-
-               <div class="row">
-                  <div class="col s12">
-                     <div class="row">
-                        <!-- Importe Solicitado -->
-                        <div class="input-field col s12 valign-wrapper">
-                           <input name="prestamo" type="text" class="validate" required />
-                           <label for="nombre">Importe a Solicitar: </label>
-                        </div>
-                        <!-- Plazo de Devolución -->
-                        <div class="col s12 m6 section">
-                           <label>Elige tu Plazo de devolución</label>
-                           <select class="browser-default deep-purple lighten-4">
-                              <option value="" disabled selected>
-                                 Elige Plazo
-                              </option>
-                              <option value="6">6 meses</option>
-                              <option value="12">12 meses</option>
-                              <option value="18">18 meses</option>
-                              <option value="24">24 meses</option>
-                              <option value="36">36 meses</option>
-                           </select>
-                        </div>
-                        <!-- Sistema de Prestamo -->
-                        <div class="col s12 m6 section">
-                           <label>Elige el Sistema de amortización</label>
-                           <select class="browser-default deep-purple lighten-4"">
-                              <option value="" disabled selected>
-                                 Elige Sistema
-                              </option>
-                              <option value=" aleman">
-                              Aleman (Cuota Variable)
-                              </option>
-                              <option value="frances">
-                                 Frances (Cuota Fija)
-                              </option>
-                              <option value="americano">
-                                 Americano (Cuota Mixta)
-                              </option>
-                           </select>
-                        </div>
-                     </div>
-
-                  </div>
-               </div>
-
-               <div class="row">
-                  <div class="col s12 buttoncol">
-                     <button class="btn col s5">Consultar</button>
-                  </div>
-               </div>
-
+            </form>
+            <div id="respuestaSimulacion" class="info">
+               <table class="striped centered">
+                  <thead>
+                     <tr>
+                        <th>Cuota</th>
+                        <th>Total Cuota</th>
+                        <th>Capital</th>
+                        <th>Interes</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                  <p></p>
+               </table>
             </div>
-
-         </form>
-
-      </div>
+         </section>
+         <!-- ? Solicitud del Prestamo -->
+         <section class="col s12">
+            <form class=" row" id="solicitarPrest">
+               <!-- ? titulo */ -->
+               <div class="col s12 center-align title">
+                  <h1 class="title"> Solicitar Prestamo</h1>
+               </div>
+               <!-- ? Nombre -->
+               <div class="input-field col s12 l6">
+                  <input id="nombre" type="text" class="validate" required>
+                  <label for="nombre">Ingresa tu Nombre</label>
+               </div>
+               <!-- ? Apellido -->
+               <div class="input-field col s12 l6">
+                  <input id="apellido" type="text" class="validate" required>
+                  <label for="apellido">Ingresa tu Apellido</label>
+               </div>
+               <!-- ? N° de Documento -->
+               <div class="input-field col s12 l6">
+                  <input id="documento" type="text" class="validate" required>
+                  <label for="documento">Ingresa tu N° de Documento</label>
+               </div>
+               <!-- ? Email -->
+               <div class="input-field col s12 l6">
+                  <input id="email" type="email" class="validate" required>
+                  <label for="email">Ingresa tu E-mail</label>
+               </div>
+               <div class="input-field col s12  valign-wrapper">
+                  <div class=" col s12 center">
+                     <a class="btn">Solicitar Prestamo</a>
+                  </div>
+               </div>
+            </form>
+         </section>
+      </section>
    </section>
-   <!--Import jQuery before materialize.js-->
+   <!-- ! Import jQuery before materialize.js-->
    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-   <!-- Compiled and minified JavaScript -->
+   <!-- ! Compiled and minified JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
 

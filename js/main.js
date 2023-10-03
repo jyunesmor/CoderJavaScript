@@ -246,3 +246,5 @@ function calcularCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
 
   return cuota;
 } // Sistema Cuota Variable
+
+
