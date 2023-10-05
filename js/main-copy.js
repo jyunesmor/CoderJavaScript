@@ -1,20 +1,43 @@
 
-const simularPrestamo = document.querySelector("#consultaPrest");
-const periodo = document.querySelector("#plazo");
-const amortizacion = document.querySelector("#sistema");
-const importe = document.querySelector("#solicitud");
+const simularPrestamo = document.querySelector('#consultaPrest');
+const solicitarPrest = document.querySelector('#solicitarPrest');
+const periodo = document.querySelector('#plazo');
+const amortizacion = document.querySelector('#sistema');
+const importe = document.querySelector('#solicitud');
+const panelPrestamo = document.querySelector('.panelPrestamo');
+
+const nombre = document.querySelector('#nombre');
+const apellido = document.querySelector('#apellido');
+const dni = document.querySelector('#documento');
+const email = document.querySelector('#email');
+
 const respuestaSimulacion = document.querySelector('#respuestaSimulacion tbody');
 const respuestaSimulacionInfo = document.querySelector('#respuestaSimulacion p');
 
+const habilitarboton = document.querySelector('#btn');
+const btnSimular = document.querySelector('#botonSimular');
+const btnSolicitarPrest = document.querySelector('#btnSolicitarPrest')
+
 class CuotaMensual {
-   constructor(capital, interes, total, iva, comiAdm, sistema) {
+
+   constructor(capital, interes, total, iva, comisionadm, sistema) {
       this._capital = capital;
       this._interes = interes;
       this._total = total;
       this._iva = iva;
-      this._comiAdm = comiAdm;
+      this._comiAdm = comisionadm;
       this._sistema = sistema;
+      this._totalPrestamo = 0;
    }
+
+   getTotalPrestamo() {
+      return this._totalPrestamo += this._total;
+   };
+
+   get totalPrestamo() {
+      return this.getTotalPrestamo();
+   };
+
 
    get getCapital() {
       return this._capital;
@@ -22,6 +45,10 @@ class CuotaMensual {
 
    get getInteres() {
       return this._interes;
+   }
+
+   get getTotal() {
+      return this._total;
    }
 
    get getIva() {
@@ -44,6 +71,10 @@ class CuotaMensual {
       this._interes = int;
    }
 
+   set setTotal(tot) {
+      this._total = tot;
+   }
+
    set setIva(iv) {
       this._iva = iv;
    }
@@ -56,25 +87,62 @@ class CuotaMensual {
       this._sistema = sist;
    }
 
-   mostrarCuotas(cuotas) {
-      cuotas.forEach((cuotas, i) => {
-         console.log(
-            `La Cuota n° ${i + 1}
-            es por un total de $ ${cuotas._total}, 
-            y se compone de la siguiente manera:
-            Capital por $ ${cuotas._capital},
-            Intereses por $ ${cuotas._interes},
-            Iva por $ ${cuotas._iva},
-            Comision Administrativa por $ ${cuotas._comiAdm}.-`
-         );
-      });
+}
+
+class Usuario {
+   constructor(nombre, apellido, dni, email, prestamo) {
+      this._nombre = nombre;
+      this._apellido = apellido;
+      this._dni = dni;
+      this._email = email;
+      this._prestamo = prestamo;
    }
 
+   get getNombre() {
+      return this._nombre
+   };
+
+   get getApellido() {
+      return this.apellido
+   };
+
+   get getDni() {
+      return this._dni
+   };
+
+   get getEmail() {
+      return this._email
+   };
+
+   get getPrestamo() {
+      return this._prestamo;
+   }
+
+   set setNombre(nom) {
+      this._nombre = nom;
+   }
+
+   set setApellido(ape) {
+      this._apellido = ape;
+   }
+
+   set setDni(documento) {
+      this._dni = documento;
+   }
+
+   set setEmail(mail) {
+      this._email = mail;
+   }
+
+   set setPrestamo(prest) {
+      this._prestamo = prest;
+   }
 }
 
 let cuota = new CuotaMensual();
+let usuarios = [];
 
-simularPrestamo.addEventListener("submit", (evt) => {
+simularPrestamo.addEventListener('submit', (evt) => {
 
    evt.preventDefault();
 
@@ -111,10 +179,42 @@ simularPrestamo.addEventListener("submit", (evt) => {
 
    cargarTablaCuota(cuota);
    cargaDetalle();
+   btnSimular.textContent = 'Volver a Simular'
+   cuota === null ? habilitarboton.disabled = true : habilitarboton.disabled = false;
+
+   console.log(cuota.totalPrestamo);
 });
 
-// Funciones a utiizar
+habilitarboton.addEventListener('click', (evt) => {
+   evt.preventDefault();
 
+   panelPrestamo.style.display = 'block';
+   habilitarboton.style.display = 'none';
+
+});
+
+solicitarPrest.addEventListener('submit', (evt) => {
+   evt.preventDefault();
+   let usuario = new Usuario();
+
+   usuario.setNombre = nombre.value;
+   usuario.setApellido = apellido.value;
+   usuario.setDni = dni.value;
+   usuario.setEmail = email.value;
+   usuario.setPrestamo = cuota;
+
+   usuarios = JSON.parse(localStorage.getItem('usuario'));
+   usuarios.push(usuario);
+
+   localStorage.setItem('usuario', JSON.stringify(usuarios));
+
+   console.log(usuario)
+   console.log(usuarios)
+
+});
+
+
+// Funciones a utiizar
 
 function cargarTablaCuota(plan) {
 
@@ -130,7 +230,7 @@ function cargarTablaCuota(plan) {
          <td class="centered"> $ ${cuota._interes} </td>
       `
       respuestaSimulacion.appendChild(fila);
-   })
+   });
 
 };
 
@@ -164,14 +264,14 @@ function calcularCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
    let mes = 1;
    while (mes <= plazo) {
       const cuotaAmericana = new CuotaMensual();
-      cuotaAmericana._iva = prestamo * iva;
-      cuotaAmericana._comiAdm = prestamo * comisionAdm;
-      cuotaAmericana._sistema = "AMERICANO";
+      cuotaAmericana.setIva = (prestamo * iva);
+      cuotaAmericana.setComisionAdm = (prestamo * comisionAdm);
+      cuotaAmericana.setSistema = ("AMERICANO");
       cuotaAmericana.setInteres = ((prestamo * interes) / 100).toFixed(2);
 
       if (mes === plazo) {
          cuotaAmericana.setCapital = prestamo.toFixed(2);
-         cuotaAmericana._total = (
+         cuotaAmericana.setTotal = (
             Number(cuotaAmericana.getInteres) +
             Number(cuotaAmericana.getIva) +
             Number(cuotaAmericana.getComisionAdm) +
@@ -180,7 +280,7 @@ function calcularCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
          cuota.push(cuotaAmericana);
       } else {
          cuotaAmericana.setCapital = 0;
-         cuotaAmericana._total = (
+         cuotaAmericana.setTotal = (
             Number(cuotaAmericana.getInteres) +
             Number(cuotaAmericana.getIva) +
             Number(cuotaAmericana.getComisionAdm)
@@ -191,7 +291,7 @@ function calcularCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
       mes += 1;
    }
    return cuota;
-} // Sistema Cuota Mixta
+}; // Sistema Cuota Mixta
 
 function calcularCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
    const cuota = [];
@@ -203,21 +303,21 @@ function calcularCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
    // Calculo Desglose de Cuota
    while (prestamo > 1) {
       const cuotaFrances = new CuotaMensual();
-      cuotaFrances._iva = (cuotaFija * iva).toFixed(2);
-      cuotaFrances._comiAdm = (cuotaFija * comisionAdm).toFixed(2);
-      cuotaFrances._sistema = "FRANCES";
+      cuotaFrances.setIva = (cuotaFija * iva).toFixed(2);
+      cuotaFrances.setComisionAdm = (cuotaFija * comisionAdm).toFixed(2);
+      cuotaFrances.setSistema = "FRANCES";
       cuotaFrances.setInteres = (prestamo * (interes / 100)).toFixed(2);
       cuotaFrances.setCapital = (cuotaFija - cuotaFrances.getInteres).toFixed(
          2
       );
-      cuotaFrances._total = (Number(cuotaFrances.getCapital) + Number(cuotaFrances.getInteres) + Number(cuotaFrances._iva) + Number(cuotaFrances._comiAdm)).toFixed(2);
+      cuotaFrances.setTotal = (Number(cuotaFrances.getCapital) + Number(cuotaFrances.getInteres) + Number(cuotaFrances._iva) + Number(cuotaFrances._comiAdm)).toFixed(2);
 
       cuota.push(cuotaFrances);
       prestamo -= cuotaFrances.getCapital;
    }
 
    return cuota;
-} // Sistema Cuota Fijo
+}; // Sistema Cuota Fijo
 
 function calcularCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
    const cuota = [];
@@ -227,22 +327,15 @@ function calcularCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
       const cuotaAleman = new CuotaMensual();
       cuotaAleman.setCapital = cuotaFija.toFixed(2);
       cuotaAleman.setInteres = ((prestamo * interes) / 100).toFixed(2);
-      cuotaAleman._iva = (cuotaAleman.getCapital * iva).toFixed(2);
-      cuotaAleman._comiAdm = (cuotaAleman.getCapital * comisionAdm).toFixed(2);
-      cuotaAleman._sistema = "ALEMAN";
-      cuotaAleman._total = (Number(cuotaAleman.getCapital) + Number(cuotaAleman.getInteres) + Number(cuotaAleman._iva) + Number(cuotaAleman._comiAdm)).toFixed(2);
+      cuotaAleman.setIva = (cuotaAleman.getCapital * iva).toFixed(2);
+      cuotaAleman.setComisionAdm = (cuotaAleman.getCapital * comisionAdm).toFixed(2);
+      cuotaAleman.setSistema = "ALEMAN";
+      cuotaAleman.setTotal = (Number(cuotaAleman.getCapital) + Number(cuotaAleman.getInteres) + Number(cuotaAleman.getIva) + Number(cuotaAleman.getComisionAdm)).toFixed(2);
 
       cuota.push(cuotaAleman);
       prestamo -= cuotaFija;
    } while (prestamo > 0);
 
    return cuota;
-} // Sistema Cuota Variable
-
-
-
-
-
-
-
+}; // Sistema Cuota Variable
 

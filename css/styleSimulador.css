@@ -5,25 +5,40 @@ html {
   box-sizing: border-box;
   font-family: "Eczar", serif;
   background-color: lightblue;
-  width: 100vw;
-  height: 100vh;
   font-size: 14px; }
   html body {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-    html body .contenedor {
-      margin-top: 200px;
-      background-color: white;
-      width: 40%; }
-      html body .contenedor .title {
-        font-size: 2.8rem; }
-      html body .contenedor input {
-        margin: 10px 10px;
-        padding: 35px; }
-      html body .contenedor .info p {
-        font-size: .9rem; }
-      html body .contenedor .btn {
-        width: 50%; }
+    width: 100vw;
+    height: 100vh;
+    display: flex; }
+    html body main {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      background-color: lightcoral; }
+      html body main .contenedor {
+        width: 45%;
+        margin: 100px auto;
+        background-color: white;
+        height: auto; }
+        html body main .contenedor .panelSimulacion {
+          height: auto; }
+          html body main .contenedor .panelSimulacion .consultaForm {
+            height: auto; }
+            html body main .contenedor .panelSimulacion .consultaForm .title {
+              font-size: 2.8rem; }
+            html body main .contenedor .panelSimulacion .consultaForm .info p {
+              font-size: .9rem; }
+            html body main .contenedor .panelSimulacion .consultaForm input {
+              padding: auto; }
+            html body main .contenedor .panelSimulacion .consultaForm .btn {
+              width: 50%; }
+        html body main .contenedor .panelPrestamo {
+          display: none; }
+          html body main .contenedor .panelPrestamo .prestamoForm {
+            height: auto; }
+            html body main .contenedor .panelPrestamo .prestamoForm .title {
+              font-size: 2.8rem; }
+            html body main .contenedor .panelPrestamo .prestamoForm input {
+              padding: auto; }
+            html body main .contenedor .panelPrestamo .prestamoForm .btn {
+              width: 50%; }
