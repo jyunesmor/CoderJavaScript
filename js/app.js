@@ -1,4 +1,3 @@
-
 const simularPrestamo = document.querySelector('#consultaPrest');
 const solicitarPrest = document.querySelector('#solicitarPrest');
 const periodo = document.querySelector('#plazo');
@@ -27,17 +26,8 @@ class CuotaMensual {
       this._iva = iva;
       this._comiAdm = comisionadm;
       this._sistema = sistema;
-      this._totalPrestamo = 0;
+      this._totalPrestamo = null;
    }
-
-   getTotalPrestamo() {
-      return this._totalPrestamo += this._total;
-   };
-
-   get totalPrestamo() {
-      return this.getTotalPrestamo();
-   };
-
 
    get getCapital() {
       return this._capital;
@@ -96,6 +86,7 @@ class Usuario {
       this._dni = dni;
       this._email = email;
       this._prestamo = prestamo;
+      this._totalPrestamo = 0;
    }
 
    get getNombre() {
@@ -116,6 +107,14 @@ class Usuario {
 
    get getPrestamo() {
       return this._prestamo;
+   }
+
+   get getTotalPrestamo() {
+      return this._totalPrestamo;
+   }
+
+   set setTotalPrestamo(totprest) {
+      this._totalPrestamo = totprest;
    }
 
    set setNombre(nom) {
@@ -140,7 +139,7 @@ class Usuario {
 }
 
 let cuota = new CuotaMensual();
-let usuarios = [];
+// Eventos
 
 simularPrestamo.addEventListener('submit', (evt) => {
 
@@ -179,10 +178,11 @@ simularPrestamo.addEventListener('submit', (evt) => {
 
    cargarTablaCuota(cuota);
    cargaDetalle();
+
    btnSimular.textContent = 'Volver a Simular'
+
    cuota === null ? habilitarboton.disabled = true : habilitarboton.disabled = false;
 
-   console.log(cuota.totalPrestamo);
 });
 
 habilitarboton.addEventListener('click', (evt) => {
@@ -196,20 +196,25 @@ habilitarboton.addEventListener('click', (evt) => {
 solicitarPrest.addEventListener('submit', (evt) => {
    evt.preventDefault();
    let usuario = new Usuario();
+   let us = [];
+   let db = [];
 
    usuario.setNombre = nombre.value;
    usuario.setApellido = apellido.value;
    usuario.setDni = dni.value;
    usuario.setEmail = email.value;
    usuario.setPrestamo = cuota;
+   usuario.setTotalPrestamo = usuario._prestamo.reduce((acumulador, cuota) => acumulador += Number(cuota._total), 0);
 
-   usuarios = JSON.parse(localStorage.getItem('usuario'));
-   usuarios.push(usuario);
+   us.push(usuario);
+   db = JSON.parse(localStorage.getItem('usuario'))
 
-   localStorage.setItem('usuario', JSON.stringify(usuarios));
-
-   console.log(usuario)
-   console.log(usuarios)
+   if (db === null) {
+      localStorage.setItem('usuario', JSON.stringify(us))
+   } else {
+      db.push(usuario);
+      localStorage.setItem('usuario', JSON.stringify(db));
+   }
 
 });
 
