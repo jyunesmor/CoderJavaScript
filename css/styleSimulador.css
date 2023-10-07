@@ -1,6 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,600;1,400;1,600&family=Dela+Gothic+One&family=Encode+Sans+SC:wght@200;400&family=M+PLUS+Code+Latin:wght@200;400&family=Oswald:wght@300;400&family=Roboto+Flex:opsz,wght@8..144,200;8..144,400&display=swap");
+/* ----- Colores ----- */
 /* ----- Mixins ----- */
 /* ----- Extends ----- */
+html body main .contenedor {
+  border: 1px solid black;
+  border-radius: 20px;
+  box-shadow: 3px 3px 12px 6px black; }
+
+html body main .contenedor .panelForm .btn, html body main .contenedor .panelRespuesta .btn, html body main .contenedor .panelPrestamo .btn {
+  width: 150px;
+  background-color: #c8ca66;
+  color: black;
+  border: none;
+  box-shadow: 3px 3px black; }
+
 /*! Media_Query 900px */
 /*! Media_Query 750px */
 /*! Media_Query 600px */
@@ -15,7 +28,7 @@ html {
   width: 100%;
   height: 100%;
   font-size: 14px;
-  background-color: lightcyan; }
+  background-color: #e2e37e; }
   html body {
     width: 90%;
     margin: auto;
@@ -23,19 +36,26 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: lightsalmon;
-    font-family: "Cabin", sans-serif; }
+    font-family: "Cabin", sans-serif;
+    background-color: #fdfd96; }
     html body header {
       width: 100%; }
+      html body header nav {
+        background-color: #e2e37e; }
+      html body header .btn {
+        width: 150px;
+        background-color: #fdfd96;
+        color: black;
+        border: none;
+        box-shadow: 3px 3px black; }
     html body main {
       width: 80%;
-      background-color: lightgreen;
       display: flex;
       margin: 100px 0; }
       html body main .contenedor {
         width: 70%;
-        margin: auto;
-        background-color: lightblue; }
+        margin: 60px auto;
+        background-color: #fffec2; }
         @media screen and (max-width: 750px) {
           html body main .contenedor {
             width: 85%; } }
@@ -44,17 +64,10 @@ html {
             width: 95%; } }
         html body main .contenedor .panelForm {
           width: 95%;
-          background-color: lightgreen; }
-          html body main .contenedor .panelForm .btn {
-            width: 150px; }
+          margin-top: 30px; }
         html body main .contenedor .panelRespuesta {
-          width: 95%;
-          background-color: lightseagreen; }
-          html body main .contenedor .panelRespuesta .btn {
-            width: 150px; }
+          width: 95%; }
         html body main .contenedor .panelPrestamo {
           width: 95%;
           display: none;
-          background-color: lightskyblue; }
-          html body main .contenedor .panelPrestamo .btn {
-            width: 150px; }
+          margin-bottom: 30px; }

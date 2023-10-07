@@ -13,7 +13,13 @@ $fuenteOswald: 'Oswald',
 $fuenteRoboto: 'Roboto Flex',
   sans-serif;
 
+/* ----- Colores ----- */
 
+$Color-Oscuro1 : #c8ca66;
+$Color-Oscuro2 : #e2e37e;
+$Color-Medio : #fdfd96;
+$Color-Claro2 : #fffec2;
+$Color-Claro1 : #ffffec;
 /* ----- Mixins ----- */
 
 @mixin flex ($display, $justify, $align) {
@@ -36,4 +42,18 @@ $fuenteRoboto: 'Roboto Flex',
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+%border-card {
+  border: 1px solid black;
+  border-radius: 20px;
+  box-shadow: 3px 3px 12px 6px black;
+}
+
+%botones {
+  width: 150px;
+  background-color: $Color-Oscuro1;
+  color: black;
+  border: none;
+  box-shadow: 3px 3px black;
 }

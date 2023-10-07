@@ -12,6 +12,7 @@ const apellido = document.querySelector('#apellido');
 const dni = document.querySelector('#documento');
 const email = document.querySelector('#email');
 
+
 const respuestaSimulacion = document.querySelector('#respuestaSimulacion tbody');
 const respuestaSimulacionInfo = document.querySelector('#respuestaSimulacion p');
 
@@ -221,6 +222,7 @@ solicitarPrest.addEventListener('submit', (evt) => {
 });
 
 buscadorPrestamos.addEventListener('submit', (evt) => {
+   evt.preventDefault();
    let prestamosEncontrados = [];
 
    const dniBuscado = inputSearch.value;
