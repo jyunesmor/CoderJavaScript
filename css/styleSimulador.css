@@ -1,44 +1,58 @@
+/*! Media_Query 900px */
+/*! Media_Query 750px */
+/*! Media_Query 600px */
+/*! Media_Query 450px */
 @import url("https://fonts.googleapis.com/css2?family=Eczar&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box; }
+
 html {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   font-family: "Eczar", serif;
-  background-color: lightblue;
-  font-size: 14px; }
+  font-size: 14px;
+  background-color: lightcyan; }
   html body {
-    width: 100vw;
-    height: 100vh;
-    display: flex; }
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: lightsalmon; }
+    html body header {
+      width: 100%; }
     html body main {
-      width: 100%;
-      margin: auto;
+      width: 80%;
+      background-color: lightgreen;
       display: flex;
-      background-color: lightcoral; }
+      margin: 100px 0; }
       html body main .contenedor {
-        width: 45%;
-        margin: 100px auto;
-        background-color: white;
-        height: auto; }
-        html body main .contenedor .panelSimulacion {
-          height: auto; }
-          html body main .contenedor .panelSimulacion .consultaForm {
-            height: auto; }
-            html body main .contenedor .panelSimulacion .consultaForm .title {
-              font-size: 2.8rem; }
-            html body main .contenedor .panelSimulacion .consultaForm .info p {
-              font-size: .9rem; }
-            html body main .contenedor .panelSimulacion .consultaForm input {
-              padding: auto; }
-            html body main .contenedor .panelSimulacion .consultaForm .btn {
-              width: 50%; }
+        width: 70%;
+        margin: auto;
+        background-color: lightblue; }
+        @media screen and (max-width: 750px) {
+          html body main .contenedor {
+            width: 85%; } }
+        @media screen and (max-width: 450px) {
+          html body main .contenedor {
+            width: 95%; } }
+        html body main .contenedor .panelForm {
+          width: 95%;
+          background-color: lightgreen; }
+          html body main .contenedor .panelForm .btn {
+            width: 150px; }
+        html body main .contenedor .panelRespuesta {
+          width: 95%;
+          background-color: lightseagreen; }
+          html body main .contenedor .panelRespuesta .btn {
+            width: 150px; }
         html body main .contenedor .panelPrestamo {
-          display: none; }
-          html body main .contenedor .panelPrestamo .prestamoForm {
-            height: auto; }
-            html body main .contenedor .panelPrestamo .prestamoForm .title {
-              font-size: 2.8rem; }
-            html body main .contenedor .panelPrestamo .prestamoForm input {
-              padding: auto; }
-            html body main .contenedor .panelPrestamo .prestamoForm .btn {
-              width: 50%; }
+          width: 95%;
+          display: none;
+          background-color: lightskyblue; }
+          html body main .contenedor .panelPrestamo .btn {
+            width: 150px; }

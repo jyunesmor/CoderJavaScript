@@ -13,8 +13,8 @@ const email = document.querySelector('#email');
 const respuestaSimulacion = document.querySelector('#respuestaSimulacion tbody');
 const respuestaSimulacionInfo = document.querySelector('#respuestaSimulacion p');
 
-const habilitarboton = document.querySelector('#btn');
-const btnSimular = document.querySelector('#botonSimular');
+const btnSolicitar = document.querySelector('#btnSolicitar');
+const btnSimular = document.querySelector('#btnSimular');
 const btnSolicitarPrest = document.querySelector('#btnSolicitarPrest')
 
 class CuotaMensual {
@@ -181,15 +181,15 @@ simularPrestamo.addEventListener('submit', (evt) => {
 
    btnSimular.textContent = 'Volver a Simular'
 
-   cuota === null ? habilitarboton.disabled = true : habilitarboton.disabled = false;
+   cuota === null ? btnSolicitar.disabled = true : btnSolicitar.disabled = false;
 
 });
 
-habilitarboton.addEventListener('click', (evt) => {
+btnSolicitar.addEventListener('click', (evt) => {
    evt.preventDefault();
 
    panelPrestamo.style.display = 'block';
-   habilitarboton.style.display = 'none';
+   btnSolicitar.style.display = 'none';
 
 });
 
@@ -229,10 +229,10 @@ function cargarTablaCuota(plan) {
       const fila = document.createElement('tr');
 
       fila.innerHTML = `
-         <td class="centered"> ${i + 1} </td>
-         <td class="centered"> $ ${cuota._total} *</td>
-         <td class="centered"> $ ${cuota._capital} </td>
-         <td class="centered"> $ ${cuota._interes} </td>
+         <td> ${i + 1} </td>
+         <td> $ ${cuota._total} *</td>
+         <td> $ ${cuota._capital} </td>
+         <td> $ ${cuota._interes} </td>
       `
       respuestaSimulacion.appendChild(fila);
    });
