@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,600;1,400;1,600&family=Dela+Gothic+One&family=Encode+Sans+SC:wght@200;400&family=M+PLUS+Code+Latin:wght@200;400&family=Oswald:wght@300;400&family=Roboto+Flex:opsz,wght@8..144,200;8..144,400&display=swap");
+/* ----- Mixins ----- */
+/* ----- Extends ----- */
 /*! Media_Query 900px */
 /*! Media_Query 750px */
 /*! Media_Query 600px */
 /*! Media_Query 450px */
-@import url("https://fonts.googleapis.com/css2?family=Eczar&display=swap");
 * {
   margin: 0px;
   padding: 0px;
@@ -12,7 +14,6 @@ html {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  font-family: "Eczar", serif;
   font-size: 14px;
   background-color: lightcyan; }
   html body {
@@ -22,7 +23,8 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: lightsalmon; }
+    background-color: lightsalmon;
+    font-family: "Cabin", sans-serif; }
     html body header {
       width: 100%; }
     html body main {

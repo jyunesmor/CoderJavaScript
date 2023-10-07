@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,600;1,400;1,600&family=Dela+Gothic+One&family=Encode+Sans+SC:wght@200;400&family=M+PLUS+Code+Latin:wght@200;400&family=Oswald:wght@300;400&family=Roboto+Flex:opsz,wght@8..144,200;8..144,400&display=swap');
+
+$fuenteCabin: 'Cabin',
+  sans-serif;
+$fuenteDela: 'Dela Gothic One',
+  cursive;
+$fuenteEncode: 'Encode Sans SC',
+  sans-serif;
+$fuenteMplus: 'M PLUS Code Latin',
+  sans-serif;
+$fuenteOswald: 'Oswald',
+  sans-serif;
+$fuenteRoboto: 'Roboto Flex',
+  sans-serif;
+
+
+/* ----- Mixins ----- */
+
+@mixin flex ($display, $justify, $align) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flexColumn ($display, $direction, $justify, $align) {
+  display: $display;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+
+/* ----- Extends ----- */
+
+%flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

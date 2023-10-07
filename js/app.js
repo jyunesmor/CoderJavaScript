@@ -4,7 +4,9 @@ const periodo = document.querySelector('#plazo');
 const amortizacion = document.querySelector('#sistema');
 const importe = document.querySelector('#solicitud');
 const panelPrestamo = document.querySelector('.panelPrestamo');
+const buscadorPrestamos = document.querySelector('#buscadorPrestamos');
 
+const inputSearch = document.querySelector('#inputSearch');
 const nombre = document.querySelector('#nombre');
 const apellido = document.querySelector('#apellido');
 const dni = document.querySelector('#documento');
@@ -218,8 +220,26 @@ solicitarPrest.addEventListener('submit', (evt) => {
 
 });
 
+buscadorPrestamos.addEventListener('submit', (evt) => {
+   let prestamosEncontrados = [];
+
+   const dniBuscado = inputSearch.value;
+   console.log(dniBuscado);
+
+   prestamosEncontrados = filtrarPorDocumento(dniBuscado);
+
+   console.log(prestamosEncontrados);
+})
+
 
 // Funciones a utiizar
+
+function filtrarPorDocumento(documento) {
+   let dbPrestamos = [];
+   dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
+   console.log(dbPrestamos._nombre)
+   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._dni == documento);
+}
 
 function cargarTablaCuota(plan) {
 
