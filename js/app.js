@@ -6,6 +6,8 @@ const importe = document.querySelector('#solicitud');
 const panelPrestamo = document.querySelector('.panelPrestamo');
 const buscadorPrestamos = document.querySelector('#buscadorPrestamos');
 
+
+const tipoBusqueda = document.querySelector('#tipoBusqueda');
 const inputSearch = document.querySelector('#inputSearch');
 const nombre = document.querySelector('#nombre');
 const apellido = document.querySelector('#apellido');
@@ -15,6 +17,7 @@ const email = document.querySelector('#email');
 
 const respuestaSimulacion = document.querySelector('#respuestaSimulacion tbody');
 const respuestaSimulacionInfo = document.querySelector('#respuestaSimulacion p');
+const respuestaBusqueda = document.querySelector('#respuestaBusqueda tbody');
 
 const btnSolicitar = document.querySelector('#btnSolicitar');
 const btnSimular = document.querySelector('#btnSimular');
@@ -219,18 +222,36 @@ solicitarPrest.addEventListener('submit', (evt) => {
       localStorage.setItem('usuario', JSON.stringify(db));
    }
 
+   location.reload();
+
 });
 
 buscadorPrestamos.addEventListener('submit', (evt) => {
    evt.preventDefault();
    let prestamosEncontrados = [];
 
-   const dniBuscado = inputSearch.value;
-   console.log(dniBuscado);
+   const tipoBusq = tipoBusqueda.value;
+   const valorBusqueda = inputSearch.value.toUpperCase();
 
-   prestamosEncontrados = filtrarPorDocumento(dniBuscado);
+   console.log(tipoBusq)
+   console.log(valorBusqueda)
 
-   console.log(prestamosEncontrados);
+   switch (tipoBusq) {
+      case 'dni':
+         prestamosEncontrados = filtrarPorDocumento(valorBusqueda);
+         break;
+      case 'sistema':
+         prestamosEncontrados = filtrarPorSistema(valorBusqueda);
+         break;
+      case 'apellido':
+         prestamosEncontrados = filtrarPorApellido(valorBusqueda);
+         break;
+      default:
+         break;
+   }
+
+   cargarTablaBusqueda(prestamosEncontrados);
+
 })
 
 
@@ -239,14 +260,57 @@ buscadorPrestamos.addEventListener('submit', (evt) => {
 function filtrarPorDocumento(documento) {
    let dbPrestamos = [];
    dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
-   console.log(dbPrestamos._nombre)
-   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._dni == documento);
+   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._dni === documento);
 }
 
-function cargarTablaCuota(plan) {
+function filtrarPorSistema(sistema) {
+   let dbPrestamos = [];
+   dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
+   return prestamoFiltrado = dbPrestamos.filter((usuario) =>
+      usuario._prestamo.some(prestamo => prestamo._sistema === sistema));
+}
+
+
+function filtrarPorApellido(apellido) {
+   let dbPrestamos = [];
+   dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
+   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._nombre === apellido);
+}
+
+function cargarTablaBusqueda(usuarios) {
+
+   limpiarTablaBusqueda();
+   usuarios.forEach((usuario) => {
+      console.log(usuarios)
+      const fila = document.createElement('tr');
+
+      fila.innerHTML = `
+         <td> ${usuario._apellido} </td>
+         <td> ${usuario._nombre} </td>
+         <td> ${usuario._dni} </td>
+         <td> ${usuario._email} </td>
+         <td>$ ${usuario._totalPrestamo} </td>
+      `
+      respuestaBusqueda.appendChild(fila);
+   });
+
+};
+
+function cargaDetalle() {
+
+   limpiarInfo();
+   const filaInfo = document.createElement('span');
+   filaInfo.innerHTML = `
+      * Los Valores de Cuota incluyen IVA (21%), Comisión Administrativa (5%), y Tasa de Interes del 10%.-
+   `
+   respuestaSimulacionInfo.appendChild(filaInfo);
+
+};
+
+function cargarTablaCuota(prestamo) {
 
    limpiarTabla();
-   plan.forEach((cuota, i) => {
+   prestamo.forEach((cuota, i) => {
 
       const fila = document.createElement('tr');
 
@@ -270,6 +334,12 @@ function cargaDetalle() {
    `
    respuestaSimulacionInfo.appendChild(filaInfo);
 
+};
+
+function limpiarTablaBusqueda() {
+   while (respuestaBusqueda.firstChild) {
+      respuestaBusqueda.removeChild(respuestaBusqueda.firstChild);
+   }
 };
 
 function limpiarTabla() {

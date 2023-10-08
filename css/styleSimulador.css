@@ -51,7 +51,10 @@ html {
     html body main {
       width: 80%;
       display: flex;
+      flex-direction: column;
       margin: 100px 0; }
+      html body main .panelRespuestabusqueda {
+        width: 95%; }
       html body main .contenedor {
         width: 70%;
         margin: 60px auto;

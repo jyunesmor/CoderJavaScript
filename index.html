@@ -18,7 +18,13 @@
          <div class="container-fluid">
             <a class="navbar-brand" href="#">Simulador de Prestamos</a>
             <form class="d-flex" id="buscadorPrestamos" role="search">
-               <input id="inputSearch" class="form-control me-2" type="search" placeholder="Busqueda por DNI"
+               <select id="tipoBusqueda" class="form-select form-select-sm" aria-label="Small select example">
+                  <option selected>Sistema de Busqueda</option>
+                  <option value="dni">DNI</option>
+                  <option value="sistema">Sistema</option>
+                  <option value="apellido">Apellido</option>
+               </select>
+               <input id="inputSearch" placeholder="Valor a Buscar" class="form-control me-2" type="search"
                   aria-label="Search">
                <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
@@ -26,6 +32,26 @@
       </nav>
    </header>
    <main>
+      <section class="panelRespuestabusqueda d-flex flex-column my-3">
+         <!-- ? Tabla de Cuotas */ -->
+         <div class="row">
+            <div id="respuestaBusqueda" class=" col text-center">
+               <table class="table table-success table-striped">
+                  <thead>
+                     <tr>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>E-mail</th>
+                        <th>Total Prestamo</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </section>
       <!-- ? Simulacion Prestamo -->
       <section class="contenedor d-flex flex-column
       justify-content-center align-items-center">

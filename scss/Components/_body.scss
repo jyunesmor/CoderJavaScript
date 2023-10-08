@@ -42,8 +42,13 @@ html {
     main {
       width: 80%;
       display: flex;
+      flex-direction: column;
       margin: 100px 0;
 
+
+      .panelRespuestabusqueda {
+        width: 95%;
+      }
 
       .contenedor {
         width: 70%;
