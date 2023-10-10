@@ -23,6 +23,7 @@ const btnSolicitar = document.querySelector('#btnSolicitar');
 const btnSimular = document.querySelector('#btnSimular');
 const btnSolicitarPrest = document.querySelector('#btnSolicitarPrest')
 
+
 class CuotaMensual {
 
    constructor(capital, interes, total, iva, comisionadm, sistema) {
@@ -215,14 +216,29 @@ solicitarPrest.addEventListener('submit', (evt) => {
    us.push(usuario);
    db = JSON.parse(localStorage.getItem('usuario'))
 
-   if (db === null) {
-      localStorage.setItem('usuario', JSON.stringify(us))
-   } else {
-      db.push(usuario);
-      localStorage.setItem('usuario', JSON.stringify(db));
-   }
+   Swal.fire({
+      title: 'Confirmas la solicitud del Prestamo?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Solicitar',
+      denyButtonText: `Cancelar la Solicitud`,
+   }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+         Swal.fire('Felicidades!', usuario.getNombre.toUpperCase(), ', en unos momentos, lo veras acreditado')
 
-   location.reload();
+         if (db === null) {
+            localStorage.setItem('usuario', JSON.stringify(us))
+         } else {
+            db.push(usuario);
+            localStorage.setItem('usuario', JSON.stringify(db));
+         }
+         location.reload();
+      } else if (result.isDenied) {
+         Swal.fire(usuario.getNombre.toUpperCase(), 'Se cancelo correctamente, gracias y te esperamos nuevamente ')
+         location.reload();
+      }
+   })
 
 });
 
