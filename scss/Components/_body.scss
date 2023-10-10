@@ -29,13 +29,17 @@ html {
         background-color: $Color-Oscuro2;
       }
 
+      form {
 
-      .btn {
-        width: 150px;
-        background-color: $Color-Medio;
-        color: black;
-        border: none;
-        box-shadow: 3px 3px black;
+
+
+        .btn {
+          width: 150px;
+          background-color: $Color-Medio;
+          color: black;
+          border: none;
+          box-shadow: 3px 3px black;
+        }
       }
     }
 
@@ -47,12 +51,12 @@ html {
 
 
       .panelRespuestabusqueda {
-        width: 95%;
+        width: 100%;
       }
 
       .contenedor {
         width: 70%;
-        margin: 60px auto;
+        margin: 30px auto;
         background-color: $Color-Claro2;
         @extend %border-card;
 

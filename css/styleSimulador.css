@@ -42,7 +42,7 @@ html {
       width: 100%; }
       html body header nav {
         background-color: #e2e37e; }
-      html body header .btn {
+      html body header form .btn {
         width: 150px;
         background-color: #fdfd96;
         color: black;
@@ -54,10 +54,10 @@ html {
       flex-direction: column;
       margin: 100px 0; }
       html body main .panelRespuestabusqueda {
-        width: 95%; }
+        width: 100%; }
       html body main .contenedor {
         width: 70%;
-        margin: 60px auto;
+        margin: 30px auto;
         background-color: #fffec2; }
         @media screen and (max-width: 750px) {
           html body main .contenedor {

@@ -7,8 +7,8 @@
    <title>Simulador Prestamos</title>
    <!-- Bootstrap 5.3.2 -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-   <link rel="stylesheet" href="css/styleSimulador.css">
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+   <link rel="stylesheet" href="css/styleSimulador.css" />
    <script src="./js/app.js" defer></script>
 </head>
 
@@ -16,26 +16,30 @@
    <header>
       <nav class="navbar navbar-expand-lg">
          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Simulador de Prestamos</a>
+            <a class="navbar-brand mt-3" href="#">Simulador de Prestamos</a>
             <form class="d-flex" id="buscadorPrestamos" role="search">
-               <select id="tipoBusqueda" class="form-select form-select-sm" aria-label="Small select example">
+               <select id="tipoBusqueda" class="form-select me-2" aria-label="Small select example">
                   <option selected>Sistema de Busqueda</option>
                   <option value="dni">DNI</option>
                   <option value="sistema">Sistema</option>
                   <option value="apellido">Apellido</option>
+                  <!-- ! ver no me lo toma -->
                </select>
                <input id="inputSearch" placeholder="Valor a Buscar" class="form-control me-2" type="search"
-                  aria-label="Search">
-               <button class="btn btn-outline-success" type="submit">Buscar</button>
+                  aria-label="Search" />
+               <button class="btn btn-outline-success" type="submit">
+                  Buscar
+               </button>
             </form>
          </div>
       </nav>
    </header>
    <main>
-      <section class="panelRespuestabusqueda d-flex flex-column my-3">
+      <section class="panelRespuestabusqueda d-flex flex-column">
+         <h2 class="text-center">Listado de Prestamos Otorgados</h2>
          <!-- ? Tabla de Cuotas */ -->
          <div class="row">
-            <div id="respuestaBusqueda" class=" col text-center">
+            <div id="respuestaBusqueda" class="col text-center">
                <table class="table table-success table-striped">
                   <thead>
                      <tr>
@@ -46,20 +50,18 @@
                         <th>Total Prestamo</th>
                      </tr>
                   </thead>
-                  <tbody>
-                  </tbody>
+                  <tbody></tbody>
                </table>
             </div>
          </div>
       </section>
       <!-- ? Simulacion Prestamo -->
-      <section class="contenedor d-flex flex-column
-      justify-content-center align-items-center">
+      <section class="contenedor d-flex flex-column justify-content-center align-items-center">
          <!-- ? Fila formulario consulta prestamo (Datos) */ -->
          <form class="panelForm d-flex flex-column" id="consultaPrest">
             <!-- ? titulo */ -->
             <div class="row">
-               <h2 class=" col p-4 text-center">Simular Prestamo</h2>
+               <h2 class="col p-2 text-center">Simular Prestamo</h2>
             </div>
             <!-- ? Importe */ -->
             <div class="row my-2 mx-2">
@@ -89,9 +91,7 @@
                      <option value="" disabled selected>
                         Tipo de Amortización
                      </option>
-                     <option value="aleman">
-                        Aleman (Cuota Variable)
-                     </option>
+                     <option value="aleman">Aleman (Cuota Variable)</option>
                      <option value="frances">Frances (Cuota Fija)</option>
                      <option value="americano">
                         Americano (Cuota Mixta)
@@ -146,28 +146,28 @@
             <div class="row">
                <div class="col mx-2 mt-2">
                   <label for="nombre" class="form-label">Ingresa tu Nombre</label>
-                  <input id="nombre" type="text" class="validate form-control" required>
+                  <input id="nombre" type="text" class="validate form-control" required />
                </div>
             </div>
             <!-- ? Apellido -->
             <div class="row">
                <div class="col mx-2 mt-2">
                   <label for="apellido" class="form-label">Ingresa tu Apellido</label>
-                  <input id="apellido" type="text" class="validate form-control" required>
+                  <input id="apellido" type="text" class="validate form-control" required />
                </div>
             </div>
             <!-- ? N° de Documento -->
             <div class="row">
                <div class="col mx-2 mt-2">
                   <label for="documento" class="form-label">Ingresa tu N° de Documento</label>
-                  <input id="documento" type="text" class="validate form-control" required>
+                  <input id="documento" type="text" class="validate form-control" required />
                </div>
             </div>
             <!-- ? Email -->
             <div class="row">
                <div class="col mx-2 mt-2">
                   <label for="email" class="form-label">Ingresa tu E-mail</label>
-                  <input id="email" type="email" class="validate form-control" required>
+                  <input id="email" type="email" class="validate form-control" required />
                </div>
             </div>
             <div class="row my-5 mx-3">

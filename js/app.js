@@ -231,7 +231,7 @@ buscadorPrestamos.addEventListener('submit', (evt) => {
    let prestamosEncontrados = [];
 
    const tipoBusq = tipoBusqueda.value;
-   const valorBusqueda = inputSearch.value.toUpperCase();
+   const valorBusqueda = inputSearch.value;
 
    console.log(tipoBusq)
    console.log(valorBusqueda)
@@ -241,10 +241,12 @@ buscadorPrestamos.addEventListener('submit', (evt) => {
          prestamosEncontrados = filtrarPorDocumento(valorBusqueda);
          break;
       case 'sistema':
-         prestamosEncontrados = filtrarPorSistema(valorBusqueda);
+         prestamosEncontrados = filtrarPorSistema(valorBusqueda.toUpperCase());
          break;
       case 'apellido':
+         console.log('hola')
          prestamosEncontrados = filtrarPorApellido(valorBusqueda);
+         console.log(prestamosEncontrados)
          break;
       default:
          break;
@@ -274,7 +276,8 @@ function filtrarPorSistema(sistema) {
 function filtrarPorApellido(apellido) {
    let dbPrestamos = [];
    dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
-   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._nombre === apellido);
+   console.log(dbPrestamos)
+   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._apellido === apellido);
 }
 
 function cargarTablaBusqueda(usuarios) {
