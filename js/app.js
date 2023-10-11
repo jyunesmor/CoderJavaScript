@@ -8,7 +8,7 @@ const buscadorPrestamos = document.querySelector('#buscadorPrestamos');
 
 
 const tipoBusqueda = document.querySelector('#tipoBusqueda');
-const inputSearch = document.querySelector('#inputSearch');
+/* const inputSearch = document.querySelector('#inputSearch'); */
 const nombre = document.querySelector('#nombre');
 const apellido = document.querySelector('#apellido');
 const dni = document.querySelector('#documento');
@@ -22,6 +22,41 @@ const respuestaBusqueda = document.querySelector('#respuestaBusqueda tbody');
 const btnSolicitar = document.querySelector('#btnSolicitar');
 const btnSimular = document.querySelector('#btnSimular');
 const btnSolicitarPrest = document.querySelector('#btnSolicitarPrest')
+
+const btnBuscar = document.querySelector('#btnBuscar');
+
+btnBuscar.addEventListener('submit', (evt) => {
+   evt.preventDefault();
+   let prestamosEncontrados = [];
+
+   const { value: categoria } = Swal.fire({
+      title: '¿ Selecciona el tipo de Busqueda ?',
+      input: 'select',
+      inputOptions: {
+         'Sistemas': {
+            aleman: 'Alemán',
+            frances: 'Fránces',
+            americano: 'Americano',
+         },
+      },
+      inputPlaceholder: 'Categoria',
+      showCancelButton: true,
+      inputValidator: (value) => {
+         return new Promise((resolve) => {
+            if (value === 'aleman' && value === 'frances' && value === 'americano') {
+               resolve()
+            } else {
+               resolve('Debe seleccionar Alemán, Fránces, o Americano')
+            }
+         })
+      }
+   })
+
+   if (categoria) {
+      Swal.fire(`You selected: ${fruit}`)
+   }
+
+});
 
 
 class CuotaMensual {
@@ -242,35 +277,94 @@ solicitarPrest.addEventListener('submit', (evt) => {
 
 });
 
-buscadorPrestamos.addEventListener('submit', (evt) => {
+btnBuscar.addEventListener('click', (evt) => {
    evt.preventDefault();
    let prestamosEncontrados = [];
 
-   const tipoBusq = tipoBusqueda.value;
-   const valorBusqueda = inputSearch.value;
+   (async () => {
+      const { value: tipoBusq } = Swal.fire({
+         title: '¿ Selecciona el tipo de Busqueda ?',
+         input: 'select',
+         inputOptions: {
+            dni: 'Documento de Identidad',
+            sistema: 'Sistema de amortización',
+            nombre: 'Nombre Completo',
+         },
+         inputPlaceholder: 'Categoria',
+         showCancelButton: true,
+         inputValidator: (tipoBusq) => {
+            return new Promise((resolve) => {
+               if (tipoBusq === 'dni' || tipoBusq === 'sistema' || tipoBusq === 'nombre') {
+                  resolve()
 
-   console.log(tipoBusq)
-   console.log(valorBusqueda)
+                  switch (tipoBusq) {
+                     case 'dni':
+                        Swal.fire({
+                           title: 'Busqueda por Documento de Identidad',
+                           input: 'text',
+                           inputLabel: 'Documento de Identidad',
+                           inputPlaceholder: 'Ingrese el Documento a Buscar',
+                           inputValidator: (dni) => {
+                              return new Promise((resolve) => {
+                                 if (dni !== null) {
+                                    prestamosEncontrados = filtrarPorDocumento(dni);
+                                    cargarTablaBusqueda(prestamosEncontrados);
+                                    resolve()
+                                 }
+                              });
+                           }
+                        });
+                        break;
+                     case 'sistema':
+                        Swal.fire({
+                           title: 'Busqueda por Sistema de Amortización',
+                           input: 'text',
+                           inputLabel: 'Sistema',
+                           inputPlaceholder: 'Ingrese el Sistema a Buscar',
+                           inputValidator: (sistema) => {
+                              return new Promise((resolve) => {
+                                 if (sistema !== null) {
+                                    resolve()
+                                    console.log(sistema)
+                                    let ssut = sistema.toLowerCase();
+                                    console.log(ssut)
+                                    prestamosEncontrados = filtrarPorSistema(ssut);
+                                    console.log(prestamosEncontrados)
+                                    cargarTablaBusqueda(prestamosEncontrados);
+                                 }
+                              });
+                           }
+                        });
+                        break;
+                     case 'nombre':
+                        Swal.fire({
+                           title: 'Busqueda por Nombre Completo',
+                           input: 'text',
+                           inputLabel: 'Nombre Completo',
+                           inputPlaceholder: 'Ingrese el Nombre a Buscar',
+                           inputValidator: (nombre) => {
+                              return new Promise((resolve) => {
+                                 if (nombre !== null) {
+                                    prestamosEncontrados = filtrarPorNombre(nombre);
+                                    cargarTablaBusqueda(prestamosEncontrados);
+                                    resolve()
+                                 }
+                              });
+                           }
+                        });
+                        break;
+                     default:
+                        break;
+                  }
+               } else {
+                  resolve('Debe seleccionar una opción Válida')
+               }
+            })
+         }
+      })
+   })();
 
-   switch (tipoBusq) {
-      case 'dni':
-         prestamosEncontrados = filtrarPorDocumento(valorBusqueda);
-         break;
-      case 'sistema':
-         prestamosEncontrados = filtrarPorSistema(valorBusqueda.toUpperCase());
-         break;
-      case 'apellido':
-         console.log('hola')
-         prestamosEncontrados = filtrarPorApellido(valorBusqueda);
-         console.log(prestamosEncontrados)
-         break;
-      default:
-         break;
-   }
-
-   cargarTablaBusqueda(prestamosEncontrados);
-
-})
+});
 
 
 // Funciones a utiizar
@@ -284,16 +378,14 @@ function filtrarPorDocumento(documento) {
 function filtrarPorSistema(sistema) {
    let dbPrestamos = [];
    dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
-   return prestamoFiltrado = dbPrestamos.filter((usuario) =>
-      usuario._prestamo.some(prestamo => prestamo._sistema === sistema));
+   console.log(dbPrestamos)
+   return dbPrestamos.filter((usuario) => usuario._prestamo.some((prestamo) => prestamo._sistema === sistema));
 }
 
-
-function filtrarPorApellido(apellido) {
+function filtrarPorNombre(nombre) {
    let dbPrestamos = [];
    dbPrestamos = JSON.parse(localStorage.getItem('usuario'));
-   console.log(dbPrestamos)
-   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._apellido === apellido);
+   return prestamoFiltrado = dbPrestamos.filter((usuario) => usuario._nombre === nombre);
 }
 
 function cargarTablaBusqueda(usuarios) {
