@@ -27,41 +27,6 @@ const btnSolicitarPrest = document.querySelector("#btnSolicitarPrest");
 
 const btnBuscar = document.querySelector("#btnBuscar");
 
-btnBuscar.addEventListener("submit", (evt) => {
-   evt.preventDefault();
-   let prestamosEncontrados = [];
-
-   const { value: categoria } = Swal.fire({
-      title: "¿ Selecciona el tipo de Busqueda ?",
-      input: "select",
-      inputOptions: {
-         Sistemas: {
-            aleman: "Alemán",
-            frances: "Fránces",
-            americano: "Americano",
-         },
-      },
-      inputPlaceholder: "Categoria",
-      showCancelButton: true,
-      inputValidator: (value) => {
-         return new Promise((resolve) => {
-            if (
-               value === "aleman" &&
-               value === "frances" &&
-               value === "americano"
-            ) {
-               resolve();
-            } else {
-               resolve("Debe seleccionar Alemán, Fránces, o Americano");
-            }
-         });
-      },
-   });
-
-   if (categoria) {
-      Swal.fire(`You selected: ${fruit}`);
-   }
-});
 
 class CuotaMensual {
    constructor(capital, interes, total, iva, comisionadm, sistema) {
@@ -242,16 +207,13 @@ solicitarPrest.addEventListener("submit", (evt) => {
    let us = [];
    let db = [];
 
-   usuario.setNombre = nombre.value;
-   usuario.setApellido = apellido.value;
+   usuario.setNombre = nombre.value.toUpperCase();
+   usuario.setApellido = apellido.value.toUpperCase();
    usuario.setDni = dni.value;
    usuario.setEmail = email.value;
    usuario.setPrestamo = cuota;
-   usuario.setTotalPrestamo =
-      (usuario._prestamo
-         .reduce((acumulador, cuota) => (acumulador += Number(cuota._total)))
-         .toFixed(2),
-         0);
+   let totalPrest = usuario._prestamo.reduce((acumulador, cuota) => (acumulador += Number(cuota._total)), 0);
+   usuario.setTotalPrestamo = totalPrest.toFixed(2);
 
    us.push(usuario);
    db = JSON.parse(localStorage.getItem("usuario"));
@@ -263,21 +225,18 @@ solicitarPrest.addEventListener("submit", (evt) => {
       confirmButtonText: "Solicitar",
       denyButtonText: `Cancelar la Solicitud`,
    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
+
       if (result.isConfirmed) {
          Swal.fire(
-            "Felicidades!",
-            usuario.getNombre.toUpperCase(),
-            ", en unos momentos, lo veras acreditado"
+            `Felicidades!,
+            ${usuario.getNombre}, en unos momentos, lo veras acreditado`
          );
 
-         if (db === null) {
-            localStorage.setItem("usuario", JSON.stringify(us));
-         } else {
-            db.push(usuario);
-            localStorage.setItem("usuario", JSON.stringify(db));
-         }
+         db === null ? localStorage.setItem("usuario", JSON.stringify(us)) : db.push(usuario);
+
+         localStorage.setItem("usuario", JSON.stringify(db));
          location.reload();
+
       } else if (result.isDenied) {
          Swal.fire(
             usuario.getNombre.toUpperCase(),
@@ -293,9 +252,17 @@ btnBuscar.addEventListener("click", (evt) => {
    let prestamosEncontrados = [];
 
    (async () => {
-      const { value: tipoBusq } = Swal.fire({
+      const { value: tipoBusq } = await Swal.fire({
          title: "¿ Selecciona el tipo de Busqueda ?",
          input: "select",
+         padding: '1.5rem',
+         customClass: {
+            popup: 'ventanaClass',
+         },
+         allowOutsideClick: false,
+         allowEscapeKey: false,
+         allowEnterKey: false,
+         stopKeydownPropagation: true,
          inputOptions: {
             dni: "Documento de Identidad",
             sistema: "Sistema de amortización",
@@ -437,8 +404,8 @@ function cargaDetalle() {
    limpiarInfo();
    const filaInfo = document.createElement("span");
    filaInfo.innerHTML = `
-      * Los Valores de Cuota incluyen IVA (21%), Comisión Administrativa (5%), y Tasa de Interes del 10%.-
-   `;
+            * Los Valores de Cuota incluyen IVA(21 %), Comisión Administrativa(5 %), y Tasa de Interes del 10 %.-
+            `;
    respuestaSimulacionInfo.appendChild(filaInfo);
 }
 
@@ -461,8 +428,8 @@ function cargaDetalle() {
    limpiarInfo();
    const filaInfo = document.createElement("span");
    filaInfo.innerHTML = `
-      * Los Valores de Cuota incluyen IVA (21%), Comisión Administrativa (5%), y Tasa de Interes del 10%.-
-   `;
+         * Los Valores de Cuota incluyen IVA(21 %), Comisión Administrativa(5 %), y Tasa de Interes del 10 %.-
+            `;
    respuestaSimulacionInfo.appendChild(filaInfo);
 }
 

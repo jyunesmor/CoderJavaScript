@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+.ventanaClass {
+  width: 50%;
+  background-color: $Color-Medio;
+  border-radius: 15px;
+}
+
 html {
   box-sizing: border-box;
   width: 100%;
@@ -32,7 +38,6 @@ html {
       form {
         width: 25%;
 
-
         .btn {
           width: 150px;
           background-color: $Color-Medio;
@@ -41,6 +46,7 @@ html {
           box-shadow: 3px 3px black;
         }
       }
+
     }
 
     main {

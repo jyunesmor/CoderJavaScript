@@ -23,6 +23,11 @@ html body main .contenedor .panelForm .btn, html body main .contenedor .panelRes
   padding: 0px;
   box-sizing: border-box; }
 
+.ventanaClass {
+  width: 50%;
+  background-color: #fdfd96;
+  border-radius: 15px; }
+
 html {
   box-sizing: border-box;
   width: 100%;
@@ -42,12 +47,14 @@ html {
       width: 100%; }
       html body header nav {
         background-color: #e2e37e; }
-      html body header form .btn {
-        width: 150px;
-        background-color: #fdfd96;
-        color: black;
-        border: none;
-        box-shadow: 3px 3px black; }
+      html body header form {
+        width: 25%; }
+        html body header form .btn {
+          width: 150px;
+          background-color: #fdfd96;
+          color: black;
+          border: none;
+          box-shadow: 3px 3px black; }
     html body main {
       width: 80%;
       display: flex;
