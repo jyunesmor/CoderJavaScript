@@ -60,7 +60,8 @@
             <div class="row my-2 mx-2">
                <div class="col d-flex flex-column">
                   <label for="solicitud" class="form-label">Importe a Solicitar</label>
-                  <input id="solicitud" type="text" class="form-control" /required>
+                  <input id="solicitud" type="number" min="1" max="5000000"
+                     placeholder="Ingrese un importe entre $1 y $5000000" class="form-control" /required>
                </div>
             </div>
 
@@ -153,7 +154,7 @@
             <div class="row">
                <div class="col mx-2 mt-2">
                   <label for="documento" class="form-label">Ingresa tu N° de Documento</label>
-                  <input id="documento" type="text" class="validate form-control" required />
+                  <input id="documento" type="text" maxlength="8" class="validate form-control" required />
                </div>
             </div>
             <!-- ? Email -->

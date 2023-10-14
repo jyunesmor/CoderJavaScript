@@ -78,6 +78,11 @@ html {
           width: 95%;
           margin-top: 30px;
 
+          #solicitud ::-webkit-outer-spin-button,
+          ::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+          }
+
           .btn {
             @extend %botones;
           }

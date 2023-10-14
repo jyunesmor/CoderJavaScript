@@ -75,6 +75,9 @@ html {
         html body main .contenedor .panelForm {
           width: 95%;
           margin-top: 30px; }
+          html body main .contenedor .panelForm #solicitud ::-webkit-outer-spin-button,
+          html body main .contenedor .panelForm ::-webkit-inner-spin-button {
+            -webkit-appearance: none; }
         html body main .contenedor .panelRespuesta {
           width: 95%; }
         html body main .contenedor .panelPrestamo {
