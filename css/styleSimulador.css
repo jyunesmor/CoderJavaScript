@@ -84,3 +84,6 @@ html {
           width: 95%;
           display: none;
           margin-bottom: 30px; }
+          html body main .contenedor .panelPrestamo #documento ::-webkit-outer-spin-button,
+          html body main .contenedor .panelPrestamo ::-webkit-inner-spin-button {
+            -webkit-appearance: none; }

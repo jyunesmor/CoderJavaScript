@@ -5,13 +5,17 @@
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>Simulador Prestamos</title>
-   <!-- Bootstrap 5.3.2 -->
+   <!-- ? Bootstrap 5.3.2 -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
-   <!-- Sweeat Alert -->
+   <!-- ? Bootstrap -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
+      defer></script>
+   <!-- ? Sweeat Alert -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-   <!-- Css y Js Propio -->
+   <!-- ? Css y Js Propio -->
    <link rel="stylesheet" href="css/styleSimulador.css" />
    <script src="./js/app.js" defer></script>
 </head>
@@ -60,8 +64,8 @@
             <div class="row my-2 mx-2">
                <div class="col d-flex flex-column">
                   <label for="solicitud" class="form-label">Importe a Solicitar</label>
-                  <input id="solicitud" type="number" min="1" max="5000000"
-                     placeholder="Ingrese un importe entre $1 y $5000000" class="form-control" /required>
+                  <input id="solicitud" type="text" maxlength="8" class="validate form-control" pattern="[0-9]+"
+                     class="form-control" /required>
                </div>
             </div>
 
@@ -154,7 +158,8 @@
             <div class="row">
                <div class="col mx-2 mt-2">
                   <label for="documento" class="form-label">Ingresa tu N° de Documento</label>
-                  <input id="documento" type="text" maxlength="8" class="validate form-control" required />
+                  <input id="documento" type="text" maxlength="8" class="validate form-control" pattern="[0-9]+"
+                     required />
                </div>
             </div>
             <!-- ? Email -->
@@ -174,10 +179,6 @@
          </form>
       </section>
    </main>
-   <!-- ! Bootstrap -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
 </body>
 
 </html>
