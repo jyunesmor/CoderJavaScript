@@ -2,12 +2,17 @@
 /* ----- Colores ----- */
 /* ----- Mixins ----- */
 /* ----- Extends ----- */
+html body main .panelRespuestabusqueda #btnCancelarBusqueda .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 html body main .contenedor {
   border: 1px solid black;
   border-radius: 20px;
   box-shadow: 3px 3px 12px 6px black; }
 
-html body main .contenedor .panelForm .btn, html body main .contenedor .panelRespuesta .btn, html body main .contenedor .panelPrestamo .btn {
+html body main .panelRespuestabusqueda #btnCancelarBusqueda, html body main .contenedor .panelForm .btn, html body main .contenedor .panelRespuesta .btn, html body main .contenedor .panelPrestamo .btn {
   width: 150px;
   background-color: #c8ca66;
   color: black;
@@ -24,7 +29,9 @@ html body main .contenedor .panelForm .btn, html body main .contenedor .panelRes
   box-sizing: border-box; }
 
 .ventanaClass {
-  width: 50%;
+  width: 70%;
+  height: auto;
+  padding: 3rem;
   background-color: #fdfd96;
   border-radius: 15px; }
 
@@ -62,6 +69,8 @@ html {
       margin: 100px 0; }
       html body main .panelRespuestabusqueda {
         width: 100%; }
+        html body main .panelRespuestabusqueda #btnCancelarBusqueda {
+          display: none; }
       html body main .contenedor {
         width: 70%;
         margin: 30px auto;
@@ -75,15 +84,9 @@ html {
         html body main .contenedor .panelForm {
           width: 95%;
           margin-top: 30px; }
-          html body main .contenedor .panelForm #solicitud ::-webkit-outer-spin-button,
-          html body main .contenedor .panelForm ::-webkit-inner-spin-button {
-            -webkit-appearance: none; }
         html body main .contenedor .panelRespuesta {
           width: 95%; }
         html body main .contenedor .panelPrestamo {
           width: 95%;
           display: none;
           margin-bottom: 30px; }
-          html body main .contenedor .panelPrestamo #documento ::-webkit-outer-spin-button,
-          html body main .contenedor .panelPrestamo ::-webkit-inner-spin-button {
-            -webkit-appearance: none; }

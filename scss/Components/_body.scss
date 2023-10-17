@@ -5,7 +5,9 @@
 }
 
 .ventanaClass {
-  width: 50%;
+  width: 70%;
+  height: auto;
+  padding: 3rem;
   background-color: $Color-Medio;
   border-radius: 15px;
 }
@@ -58,6 +60,16 @@ html {
 
       .panelRespuestabusqueda {
         width: 100%;
+
+        #btnCancelarBusqueda {
+          display: none;
+          @extend %botones;
+
+          .btn {
+            @extend %flex;
+          }
+
+        }
       }
 
       .contenedor {
@@ -78,11 +90,6 @@ html {
           width: 95%;
           margin-top: 30px;
 
-          #solicitud ::-webkit-outer-spin-button,
-          ::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-          }
-
           .btn {
             @extend %botones;
           }
@@ -101,11 +108,6 @@ html {
           width: 95%;
           display: none;
           margin-bottom: 30px;
-
-          #documento ::-webkit-outer-spin-button,
-          ::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-          }
 
           .btn {
             @extend %botones;

@@ -17,7 +17,7 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
    <!-- ? Css y Js Propio -->
    <link rel="stylesheet" href="css/styleSimulador.css" />
-   <script src="./js/app.js" defer></script>
+   <script src="./js/app.js" type="module" defer></script>
 </head>
 
 <body>
@@ -37,21 +37,19 @@
       <section class="panelRespuestabusqueda d-flex flex-column">
          <!-- ? Tabla de Cuotas */ -->
          <div class="row">
-            <h2 class="text-center">Listado de Prestamos Otorgados</h2>
+            <div id="tituloBusqueda" class="text-center"></div>
             <div id="respuestaBusqueda" class="col text-center">
                <table class="table table-success table-striped">
-                  <thead>
-                     <tr>
-                        <th>Apellido</th>
-                        <th>Nombre</th>
-                        <th>Documento</th>
-                        <th>E-mail</th>
-                        <th>Sistema Prestamo</th>
-                        <th>Total Prestamo</th>
-                     </tr>
-                  </thead>
+                  <thead></thead>
                   <tbody></tbody>
                </table>
+            </div>
+         </div>
+         <div class="row my-3 mx-3">
+            <div class="col d-flex justify-content-center align-items-center">
+               <a><button id="btnCancelarBusqueda" type="submit" class="btn">
+                     Cancelar Consulta
+                  </button></a>
             </div>
          </div>
       </section>
@@ -100,7 +98,7 @@
 
             <div class="row my-3 mx-3">
                <div class="col d-flex justify-content-center align-items-center">
-                  <a><button id="btnSimular" type="submit" class="btn btn-primary">
+                  <a><button id="btnSimular" type="submit" class="btn">
                         Simular
                      </button></a>
                </div>

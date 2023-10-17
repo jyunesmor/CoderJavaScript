@@ -16,11 +16,16 @@ const respuestaSimulacion = document.querySelector(
 const respuestaSimulacionInfo = document.querySelector(
 	"#respuestaSimulacion p"
 );
+const tituloBusqueda = document.querySelector("#tituloBusqueda");
 const respuestaBusqueda = document.querySelector("#respuestaBusqueda tbody");
+const respuestaBusquedaTabla = document.querySelector(
+	"#respuestaBusqueda thead"
+);
 const btnSolicitar = document.querySelector("#btnSolicitar");
 const btnSimular = document.querySelector("#btnSimular");
 const btnSolicitarPrest = document.querySelector("#btnSolicitarPrest");
 const btnBuscar = document.querySelector("#btnBuscar");
+const btnCancelarBusqueda = document.querySelector("#btnCancelarBusqueda");
 
 export const dom = {
 	consultaPrest,
@@ -30,6 +35,8 @@ export const dom = {
 	respuestaSimulacion,
 	respuestaSimulacionInfo,
 	respuestaBusqueda,
+	respuestaBusquedaTabla,
+	tituloBusqueda,
 };
 
 export const datos = {
@@ -48,4 +55,5 @@ export const botones = {
 	btnSimular,
 	btnSolicitarPrest,
 	btnBuscar,
+	btnCancelarBusqueda,
 };
