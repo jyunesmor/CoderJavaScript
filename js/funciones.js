@@ -1,5 +1,6 @@
 import { CuotaMensual } from "./Cuota.js";
-import { botones, dom } from "./dom.js";
+import { dom } from "./dom.js";
+import { datosTemp } from "./servicio.js";
 
 export const filtros = {
 	filtrarPorDocumento,
@@ -12,6 +13,7 @@ export const tablas = {
 	cargarTablaBusqueda,
 	cargarTablaCuota,
 	cargaDetalle,
+	mostrarClima,
 };
 
 export const calculo = {
@@ -51,7 +53,6 @@ function cargarTablaBusqueda(usuarios) {
         <td> ${usuario._apellido} </td>
         <td> ${usuario._nombre} </td>
         <td> ${usuario._dni} </td>
-        <td> ${usuario._email} </td>
         <td> ${sistema._sistema} </td>
         <td>$ ${usuario._totalPrestamo} </td>
       `;
@@ -77,14 +78,41 @@ function cargarTablaTitulo() {
         <th>Apellido</th>
         <th>Nombre</th>
         <th>Documento</th>
-        <th>E-mail</th>
         <th>Sistema Prestamo</th>
         <th>Total Prestamo</th>
       `;
 	dom.tituloBusqueda.appendChild(tituloBusqueda);
 	dom.respuestaBusquedaTabla.appendChild(filaTitulo);
+}
 
+function mostrarClima() {
+	const clima = document.createElement("div");
 
+	clima.innerHTML = `
+            <h5 class="text-center">Clima en ${datosTemp.name}</h5>
+						<div class="d-flex flex-row justify-items-around align-items-center">
+							<div class="d-flex flex-column justify-content-center align-items-center">
+								<img src="https://openweathermap.org/img/wn/${
+									datosTemp.icon
+								}@2x.png" alt="icon"/>
+								<span class="tempDescrip text-center w-100">${datosTemp.description.toUpperCase()}
+								</span>
+							</div>
+							<div class="d-flex flex-column w-100">
+								<h2 class="d-flex justify-content-center align-items-center ">${datosTemp.temp.toFixed(
+									1
+								)}°C</h2>
+								<div class="d-flex flex-row justify-content-around align-items-center">
+									<p class="m-auto">Max: ${datosTemp.temp_max.toFixed(1)}°C
+									</p>
+									<p class="m-auto">Min: ${datosTemp.temp_min.toFixed(1)}°C
+									</p>
+								</div>
+							</div>
+						</div>
+						`;
+
+	dom.clima.appendChild(clima);
 }
 
 function cargarTablaCuota(prestamo) {

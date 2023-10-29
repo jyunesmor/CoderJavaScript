@@ -3,13 +3,6 @@ import { Usuario } from "./Usuario.js";
 import { datos, botones, dom } from "./dom.js";
 import { filtros, calculo, tablas } from "./funciones.js";
 
-const url =
-	"https://api.openweathermap.org/data/2.5/weather?q=cordoba&appid=7a347669d65ddf36ab4d0a291c760d6c";
-
-fetch(url)
-	.then((response) => response.json())
-	.then((data) => console.log(data));
-
 let cuota = new CuotaMensual();
 
 dom.consultaPrest.addEventListener("submit", (evt) => {
@@ -217,3 +210,5 @@ botones.btnCancelarBusqueda.addEventListener("click", (evt) => {
 	evt.preventDefault();
 	location.reload();
 });
+
+dom.clima.onload = tablas.mostrarClima();

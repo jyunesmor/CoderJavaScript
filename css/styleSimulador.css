@@ -54,6 +54,19 @@ html {
       width: 100%; }
       html body header nav {
         background-color: #e2e37e; }
+      html body header #clima {
+        width: 80%;
+        margin: auto;
+        border-radius: 15px;
+        padding: 10px; }
+        html body header #clima img {
+          width: 50%;
+          display: flex;
+          justify-content: center; }
+        html body header #clima .tempDescrip {
+          font-size: 12px; }
+        html body header #clima p {
+          font-size: 11px; }
       html body header form {
         width: 25%; }
         html body header form .btn {
@@ -75,7 +88,7 @@ html {
         width: 70%;
         margin: 30px auto;
         background-color: #fffec2; }
-        @media screen and (max-width: 750px) {
+        @media screen and (max-width: 800px) {
           html body main .contenedor {
             width: 85%; } }
         @media screen and (max-width: 450px) {

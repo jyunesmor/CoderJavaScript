@@ -19,7 +19,6 @@ html {
   font-size: 14px;
   background-color: $Color-Oscuro2;
 
-
   body {
     width: 90%;
     margin: auto;
@@ -37,6 +36,28 @@ html {
         background-color: $Color-Oscuro2;
       }
 
+      #clima {
+        width: 80%;
+        margin: auto;
+        border-radius: 15px;
+        padding: 10px;
+
+        img {
+          width: 50%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .tempDescrip {
+          font-size: 12px;
+        }
+
+        p {
+          font-size: 11px;
+        }
+
+      }
+
       form {
         width: 25%;
 
@@ -48,7 +69,6 @@ html {
           box-shadow: 3px 3px black;
         }
       }
-
     }
 
     main {
@@ -57,9 +77,9 @@ html {
       flex-direction: column;
       margin: 100px 0;
 
-
       .panelRespuestabusqueda {
         width: 100%;
+
 
         #btnCancelarBusqueda {
           display: none;
@@ -68,7 +88,6 @@ html {
           .btn {
             @extend %flex;
           }
-
         }
       }
 
@@ -98,7 +117,6 @@ html {
         .panelRespuesta {
           width: 95%;
 
-
           .btn {
             @extend %botones;
           }
@@ -112,9 +130,7 @@ html {
           .btn {
             @extend %botones;
           }
-
         }
-
       }
     }
   }

@@ -10,6 +10,8 @@ const nombre = document.querySelector("#nombre");
 const apellido = document.querySelector("#apellido");
 const dni = document.querySelector("#documento");
 const email = document.querySelector("#email");
+
+const clima = document.querySelector("#clima");
 const respuestaSimulacion = document.querySelector(
 	"#respuestaSimulacion tbody"
 );
@@ -28,6 +30,7 @@ const btnBuscar = document.querySelector("#btnBuscar");
 const btnCancelarBusqueda = document.querySelector("#btnCancelarBusqueda");
 
 export const dom = {
+	clima,
 	consultaPrest,
 	solicitarPrest,
 	panelPrestamo,
