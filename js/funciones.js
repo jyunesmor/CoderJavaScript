@@ -2,26 +2,6 @@ import { CuotaMensual } from "./Cuota.js";
 import { dom } from "./dom.js";
 import { datosTemp } from "./servicio.js";
 
-export const filtros = {
-	filtrarPorDocumento,
-	filtrarPorNombre,
-	filtrarPorSistema,
-};
-
-export const tablas = {
-	cargarTablaTitulo,
-	cargarTablaBusqueda,
-	cargarTablaCuota,
-	cargaDetalle,
-	mostrarClima,
-};
-
-export const calculo = {
-	calcularCuotaAleman,
-	calcularCuotaAmericano,
-	calcularCuotaFrances,
-};
-
 function filtrarPorDocumento(documento) {
 	let dbPrestamos = [];
 	dbPrestamos = JSON.parse(localStorage.getItem("usuario"));
@@ -150,91 +130,59 @@ function limpiarInfo() {
 	}
 }
 
-function calcularCuotaAmericano(prestamo, plazo, interes, iva, comisionAdm) {
+function calcularCuota(prestamo, plazo, interes, iva, comisionAdm, sistema) {
 	const cuota = [];
-
+	let cuotaFija;
 	let mes = 1;
-	while (mes <= plazo) {
-		const cuotaAmericana = new CuotaMensual();
-		cuotaAmericana.setIva = prestamo * iva;
-		cuotaAmericana.setComisionAdm = prestamo * comisionAdm;
-		cuotaAmericana.setSistema = "AMERICANO";
-		cuotaAmericana.setInteres = ((prestamo * interes) / 100).toFixed(2);
 
-		if (mes === plazo) {
-			cuotaAmericana.setCapital = prestamo.toFixed(2);
-			cuotaAmericana.setTotal = (
-				Number(cuotaAmericana.getInteres) +
-				Number(cuotaAmericana.getIva) +
-				Number(cuotaAmericana.getComisionAdm) +
-				prestamo
-			).toFixed(2);
-			cuota.push(cuotaAmericana);
-		} else {
-			cuotaAmericana.setCapital = 0;
-			cuotaAmericana.setTotal = (
-				Number(cuotaAmericana.getInteres) +
-				Number(cuotaAmericana.getIva) +
-				Number(cuotaAmericana.getComisionAdm)
-			).toFixed(2);
-
-			cuota.push(cuotaAmericana);
-		}
-		mes += 1;
-	}
-	return cuota;
-}
-
-function calcularCuotaFrances(prestamo, plazo, interes, iva, comisionAdm) {
-	const cuota = [];
-
-	let cuotaFija =
-		(prestamo * (interes / 100)) / (1 - Math.pow(interes / 100 + 1, -plazo));
-
-	while (prestamo > 1) {
-		const cuotaFrances = new CuotaMensual();
-		cuotaFrances.setIva = (cuotaFija * iva).toFixed(2);
-		cuotaFrances.setComisionAdm = (cuotaFija * comisionAdm).toFixed(2);
-		cuotaFrances.setSistema = "FRANCES";
-		cuotaFrances.setInteres = (prestamo * (interes / 100)).toFixed(2);
-		cuotaFrances.setCapital = (cuotaFija - cuotaFrances.getInteres).toFixed(2);
-		cuotaFrances.setTotal = (
-			Number(cuotaFrances.getCapital) +
-			Number(cuotaFrances.getInteres) +
-			Number(cuotaFrances._iva) +
-			Number(cuotaFrances._comiAdm)
-		).toFixed(2);
-
-		cuota.push(cuotaFrances);
-		prestamo -= cuotaFrances.getCapital;
+	if (sistema === "frances") {
+		cuotaFija =
+			(prestamo * (interes / 100)) / (1 - Math.pow(interes / 100 + 1, -plazo));
+	} else if (sistema === "americano") {
+		cuotaFija = mes === plazo ? prestamo : 0;
+	} else {
+		cuotaFija = prestamo / plazo;
 	}
 
-	return cuota;
-}
-
-function calcularCuotaAleman(prestamo, plazo, interes, iva, comisionAdm) {
-	const cuota = [];
-
-	let cuotaFija = prestamo / plazo;
 	do {
-		const cuotaAleman = new CuotaMensual();
-		cuotaAleman.setCapital = cuotaFija.toFixed(2);
-		cuotaAleman.setInteres = ((prestamo * interes) / 100).toFixed(2);
-		cuotaAleman.setIva = (cuotaAleman.getCapital * iva).toFixed(2);
-		cuotaAleman.setComisionAdm = (cuotaAleman.getCapital * comisionAdm).toFixed(
-			2
-		);
-		cuotaAleman.setSistema = "ALEMAN";
-		cuotaAleman.setTotal = (
-			Number(cuotaAleman.getCapital) +
-			Number(cuotaAleman.getInteres) +
-			Number(cuotaAleman.getIva) +
-			Number(cuotaAleman.getComisionAdm)
+		const cuotaMensual = new CuotaMensual();
+		cuotaMensual.setSistema = sistema;
+		cuotaMensual.setInteres = ((prestamo * interes) / 100).toFixed(2);
+		cuotaMensual.setIva = (cuotaFija * iva).toFixed(2);
+		cuotaMensual.setComisionAdm = (cuotaFija * comisionAdm).toFixed(2);
+		cuotaMensual.setCapital =
+			sistema === "frances"
+				? (cuotaFija - cuotaMensual.getInteres).toFixed(2)
+				: cuotaFija.toFixed(2);
+		cuotaMensual.setTotal = (
+			Number(cuotaMensual.getCapital) +
+			Number(cuotaMensual.getInteres) +
+			Number(cuotaMensual.getIva) +
+			Number(cuotaMensual.getComisionAdm)
 		).toFixed(2);
 
-		cuota.push(cuotaAleman);
+		cuota.push(cuotaMensual);
 		prestamo -= cuotaFija;
-	} while (prestamo > 0);
+		mes += 1;
+	} while (mes <= plazo);
 
 	return cuota;
 }
+
+export const filtros = {
+	filtrarPorDocumento,
+	filtrarPorNombre,
+	filtrarPorSistema,
+};
+
+export const tablas = {
+	cargarTablaTitulo,
+	cargarTablaBusqueda,
+	cargarTablaCuota,
+	cargaDetalle,
+	mostrarClima,
+};
+
+export const calculo = {
+	calcularCuota,
+};

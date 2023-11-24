@@ -77,6 +77,15 @@ html {
       flex-direction: column;
       margin: 100px 0;
 
+      #noticias {
+        width: 300px;
+
+        .imagen {
+          width: 10%;
+        }
+      }
+
+
       .panelRespuestabusqueda {
         width: 100%;
 

@@ -1,7 +1,7 @@
 import { CuotaMensual } from "./Cuota.js";
 import { Usuario } from "./Usuario.js";
 import { datos, botones, dom } from "./dom.js";
-import { filtros, calculo, tablas } from "./funciones.js";
+import { calculo, filtros, tablas } from "./funciones.js";
 
 let cuota = new CuotaMensual();
 
@@ -13,29 +13,35 @@ dom.consultaPrest.addEventListener("submit", (evt) => {
 	const interes = 0.1;
 
 	if (datos.amortizacion.value === "aleman") {
-		cuota = calculo.calcularCuotaAleman(
+		cuota = calculo.calcularCuota(
 			Number(datos.importe.value),
 			Number(datos.periodo.value),
 			interes,
 			iva,
-			comisionAdm
+			comisionAdm,
+			datos.amortizacion.value
 		);
+		console.log(cuota);
 	} else if (datos.amortizacion.value === "frances") {
-		cuota = calculo.calcularCuotaFrances(
+		cuota = calculo.calcularCuota(
 			Number(datos.importe.value),
 			Number(datos.periodo.value),
 			interes,
 			iva,
-			comisionAdm
+			comisionAdm,
+			datos.amortizacion.value
 		);
+		console.log(cuota);
 	} else {
-		cuota = calculo.calcularCuotaAmericano(
+		cuota = calculo.calcularCuota(
 			Number(datos.importe.value),
 			Number(datos.periodo.value),
 			interes,
 			iva,
-			comisionAdm
+			comisionAdm,
+			datos.amortizacion.value
 		);
+		console.log(cuota);
 	}
 
 	tablas.cargarTablaCuota(cuota);
