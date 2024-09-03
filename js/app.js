@@ -176,7 +176,6 @@ botones.btnBuscar.addEventListener("click", (evt) => {
 												let ssut = sistema;
 												console.log(ssut);
 												prestamosEncontrados = filtros.filtrarPorSistema(ssut);
-												tablas.cargarTablaTitulo();
 												tablas.cargarTablaBusqueda(prestamosEncontrados);
 												resolve();
 											}
