@@ -152,6 +152,7 @@ botones.btnBuscar.addEventListener("click", (evt) => {
 										return new Promise((resolve) => {
 											if (dni !== null) {
 												prestamosEncontrados = filtros.filtrarPorDocumento(dni);
+												tablas.cargarTablaTitulo();
 												tablas.cargarTablaBusqueda(prestamosEncontrados);
 												resolve();
 											}
@@ -175,6 +176,7 @@ botones.btnBuscar.addEventListener("click", (evt) => {
 												let ssut = sistema;
 												console.log(ssut);
 												prestamosEncontrados = filtros.filtrarPorSistema(ssut);
+												tablas.cargarTablaTitulo();
 												tablas.cargarTablaBusqueda(prestamosEncontrados);
 												resolve();
 											}
@@ -194,6 +196,7 @@ botones.btnBuscar.addEventListener("click", (evt) => {
 												prestamosEncontrados = filtros.filtrarPorNombre(
 													nombre.toUpperCase()
 												);
+												tablas.cargarTablaTitulo();
 												tablas.cargarTablaBusqueda(prestamosEncontrados);
 												resolve();
 											}
