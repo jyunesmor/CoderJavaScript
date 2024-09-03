@@ -134,6 +134,7 @@ function calcularCuota(prestamo, plazo, interes, iva, comisionAdm, sistema) {
 	const cuota = [];
 	let cuotaFija;
 	let mes = 1;
+	console.log(prestamo);
 
 	if (sistema === "frances") {
 		cuotaFija =
@@ -145,15 +146,21 @@ function calcularCuota(prestamo, plazo, interes, iva, comisionAdm, sistema) {
 	}
 
 	do {
+		console.log(cuotaFija);
 		const cuotaMensual = new CuotaMensual();
 		cuotaMensual.setSistema = sistema;
 		cuotaMensual.setInteres = ((prestamo * interes) / 100).toFixed(2);
 		cuotaMensual.setIva = (cuotaFija * iva).toFixed(2);
 		cuotaMensual.setComisionAdm = (cuotaFija * comisionAdm).toFixed(2);
-		cuotaMensual.setCapital =
-			sistema === "frances"
-				? (cuotaFija - cuotaMensual.getInteres).toFixed(2)
-				: cuotaFija.toFixed(2);
+		if (sistema === "frances") {
+			cuotaMensual.setCapital = (cuotaFija - cuotaMensual.getInteres).toFixed(
+				2
+			);
+		} else if (sistema === "americano") {
+			cuotaMensual.setCapital = mes === plazo ? prestamo : 0;
+		} else {
+			cuotaMensual.setCapital = (prestamo / plazo).toFixed(2);
+		}
 		cuotaMensual.setTotal = (
 			Number(cuotaMensual.getCapital) +
 			Number(cuotaMensual.getInteres) +

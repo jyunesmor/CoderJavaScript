@@ -77,9 +77,12 @@ dom.solicitarPrest.addEventListener("submit", (evt) => {
 		0
 	);
 	usuario.setTotalPrestamo = totalPrest.toFixed(2);
+	console.log(totalPrest);
 
 	us.push(usuario);
 	db = JSON.parse(localStorage.getItem("usuario"));
+
+	console.log(db);
 
 	Swal.fire({
 		title: "Confirmas la solicitud del Prestamo?",
@@ -93,12 +96,10 @@ dom.solicitarPrest.addEventListener("submit", (evt) => {
 				`Felicidades!,
             ${usuario.getNombre}, en unos momentos, lo veras acreditado`
 			);
-
 			db === null
 				? localStorage.setItem("usuario", JSON.stringify(us))
-				: db.push(usuario);
+				: localStorage.setItem("usuario", JSON.stringify(db.concat(us)));
 
-			localStorage.setItem("usuario", JSON.stringify(db));
 			location.reload();
 		} else if (result.isDenied) {
 			Swal.fire(
@@ -164,15 +165,16 @@ botones.btnBuscar.addEventListener("click", (evt) => {
 									title: "Busqueda por Sistema de Amortización",
 									input: "select",
 									inputOptions: {
-										ALEMAN: "Alemán",
-										FRANCES: "Francés",
-										AMERICANO: "Americano",
+										aleman: "Alemán",
+										frances: "Francés",
+										americano: "Americano",
 									},
 									inputPlaceholder: "Categoria",
 									inputValidator: (sistema) => {
 										return new Promise((resolve) => {
 											if (sistema !== null) {
-												let ssut = sistema.toUpperCase();
+												let ssut = sistema;
+												console.log(ssut);
 												prestamosEncontrados = filtros.filtrarPorSistema(ssut);
 												tablas.cargarTablaTitulo();
 												tablas.cargarTablaBusqueda(prestamosEncontrados);
@@ -191,7 +193,9 @@ botones.btnBuscar.addEventListener("click", (evt) => {
 									inputValidator: (nombre) => {
 										return new Promise((resolve) => {
 											if (nombre !== null) {
-												prestamosEncontrados = filtros.filtrarPorNombre(nombre);
+												prestamosEncontrados = filtros.filtrarPorNombre(
+													nombre.toUpperCase()
+												);
 												tablas.cargarTablaTitulo();
 												tablas.cargarTablaBusqueda(prestamosEncontrados);
 												resolve();
